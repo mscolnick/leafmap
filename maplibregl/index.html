@@ -949,6 +949,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#leafmap.maplibregl.Map.add_overture_3d_buildings" class="md-nav__link">
+    <span class="md-ellipsis">
+      add_overture_3d_buildings()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leafmap.maplibregl.Map.add_overture_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      add_overture_data()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#leafmap.maplibregl.Map.add_pmtiles" class="md-nav__link">
     <span class="md-ellipsis">
       add_pmtiles()
@@ -3134,6 +3152,27 @@
   
   <span class="md-ellipsis">
     Ocean bathymetry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maplibre/overture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overture
   </span>
   
 
@@ -5644,6 +5683,24 @@
   <a href="#leafmap.maplibregl.Map.add_marker" class="md-nav__link">
     <span class="md-ellipsis">
       add_marker()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leafmap.maplibregl.Map.add_overture_3d_buildings" class="md-nav__link">
+    <span class="md-ellipsis">
+      add_overture_3d_buildings()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leafmap.maplibregl.Map.add_overture_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      add_overture_data()
     </span>
   </a>
   
@@ -8774,6 +8831,363 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
         <span class="bp">self</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="s2">&quot;openmaptiles&quot;</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">add_overture_3d_buildings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">release</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;2024-07-22&quot;</span><span class="p">,</span>
+        <span class="n">style</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">values</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">colors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">tooltip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;simple&quot;</span><span class="p">,</span>
+        <span class="n">fit_bounds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add 3D buildings from Overture Maps to the map.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            release (Optional[str], optional): The release date of the Overture Maps data.</span>
+<span class="sd">                Defaults to &quot;2024-07-22&quot;. For more info, see</span>
+<span class="sd">                https://github.com/OvertureMaps/overture-tiles.</span>
+<span class="sd">            style (Optional[Dict[str, Any]], optional): The style dictionary for</span>
+<span class="sd">                the buildings. Defaults to None.</span>
+<span class="sd">            values (Optional[List[int]], optional): List of height values for</span>
+<span class="sd">                color interpolation. Defaults to None.</span>
+<span class="sd">            colors (Optional[List[str]], optional): List of colors corresponding</span>
+<span class="sd">                to the height values. Defaults to None.</span>
+<span class="sd">            visible (bool, optional): Whether the buildings layer is visible.</span>
+<span class="sd">                Defaults to True.</span>
+<span class="sd">            opacity (float, optional): The opacity of the buildings layer.</span>
+<span class="sd">                Defaults to 1.0.</span>
+<span class="sd">            tooltip (bool, optional): Whether to show tooltips on the buildings.</span>
+<span class="sd">                Defaults to True.</span>
+<span class="sd">            template (str, optional): The template for the tooltip. It can be</span>
+<span class="sd">                &quot;simple&quot; or &quot;all&quot;. Defaults to &quot;simple&quot;.</span>
+<span class="sd">            fit_bounds (bool, optional): Whether to fit the map bounds to the</span>
+<span class="sd">                buildings layer. Defaults to False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the length of values and colors lists are not the same.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://overturemaps-tiles-us-west-2-beta.s3.amazonaws.com/</span><span class="si">{</span><span class="n">release</span><span class="si">}</span><span class="s2">/buildings.pmtiles&quot;</span>
+
+        <span class="k">if</span> <span class="n">template</span> <span class="o">==</span> <span class="s2">&quot;simple&quot;</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;Name: {{@name}}&lt;br&gt;Subtype: {{subtype}}&lt;br&gt;Class: {{class}}&lt;br&gt;Height: {{height}}&quot;</span>
+        <span class="k">elif</span> <span class="n">template</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="s2">&quot;royalblue&quot;</span><span class="p">,</span> <span class="s2">&quot;lightblue&quot;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The values and colors must have the same length.&quot;</span><span class="p">)</span>
+            <span class="n">value_color_pairs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+                <span class="n">value_color_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">value_color_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="n">style</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;buildings&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;building&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill-extrusion&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                            <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+                            <span class="mi">0</span><span class="p">,</span>
+                        <span class="p">],</span>  <span class="c1"># only show buildings with height info</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-extrusion-color&quot;</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+                                <span class="p">[</span><span class="s2">&quot;linear&quot;</span><span class="p">],</span>
+                                <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+                            <span class="p">]</span>
+                            <span class="o">+</span> <span class="n">value_color_pairs</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-extrusion-height&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;building-parts&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;building_part&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill-extrusion&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                            <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+                            <span class="mi">0</span><span class="p">,</span>
+                        <span class="p">],</span>  <span class="c1"># only show buildings with height info</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-extrusion-color&quot;</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+                                <span class="p">[</span><span class="s2">&quot;linear&quot;</span><span class="p">],</span>
+                                <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+                            <span class="p">]</span>
+                            <span class="o">+</span> <span class="n">value_color_pairs</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-extrusion-height&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pmtiles</span><span class="p">(</span>
+            <span class="n">url</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="n">tooltip</span><span class="p">,</span>
+            <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+            <span class="n">fit_bounds</span><span class="o">=</span><span class="n">fit_bounds</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_overture_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">release</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2024-07-22&quot;</span><span class="p">,</span>
+        <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;buildings&quot;</span><span class="p">,</span>
+        <span class="n">style</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">tooltip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">fit_bounds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add Overture Maps data to the map.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            release (str, optional): The release date of the data. Defaults to</span>
+<span class="sd">                &quot;2024-07-22&quot;. For more info, see https://github.com/OvertureMaps/overture-tiles</span>
+<span class="sd">            theme (str, optional): The theme of the data. It can be one of the following:</span>
+<span class="sd">                &quot;addresses&quot;, &quot;base&quot;, &quot;buildings&quot;, &quot;divisions&quot;, &quot;places&quot;, &quot;transportation&quot;.</span>
+<span class="sd">                Defaults to &quot;buildings&quot;.</span>
+<span class="sd">            style (Optional[Dict[str, Any]], optional): The style dictionary for</span>
+<span class="sd">                the data. Defaults to None.</span>
+<span class="sd">            visible (bool, optional): Whether the data layer is visible. Defaults to True.</span>
+<span class="sd">            opacity (float, optional): The opacity of the data layer. Defaults to 1.0.</span>
+<span class="sd">            tooltip (bool, optional): Whether to show tooltips on the data.</span>
+<span class="sd">                Defaults to True.</span>
+<span class="sd">            fit_bounds (bool, optional): Whether to fit the map bounds to the</span>
+<span class="sd">                data layer. Defaults to False.</span>
+<span class="sd">            **kwargs (Any): Additional keyword arguments for the add_pmtiles method.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the theme is not one of the allowed themes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">allowed_themes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;addresses&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;base&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;buildings&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;divisions&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;places&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;transportation&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="n">theme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_themes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The theme must be one of the following: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">allowed_themes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">styles</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;address&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Infrastructure&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;infrastructure&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8DD3C7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Land&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;land&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FFFFB3&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Land_cover&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;land_cover&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#BEBADA&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Land_use&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;land_use&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FB8072&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Water&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#80B1D3&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;buildings&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Building&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;building&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#6ea299&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Building_part&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;building_part&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#fdfdb2&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;divisions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Division&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;division&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Division_area&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;division_area&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FFFFB3&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                            <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Division_boundary&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;division_boundary&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;line-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#BEBADA&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;line-width&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;places&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Place&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;place&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;transportation&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Segment&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;segment&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;line-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#ffffb3&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;line-width&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Connector&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;connector&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">},</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://overturemaps-tiles-us-west-2-beta.s3.amazonaws.com/</span><span class="si">{</span><span class="n">release</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">theme</span><span class="si">}</span><span class="s2">.pmtiles&quot;</span>
+        <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="n">styles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pmtiles</span><span class="p">(</span>
+            <span class="n">url</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="n">tooltip</span><span class="p">,</span>
+            <span class="n">fit_bounds</span><span class="o">=</span><span class="n">fit_bounds</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">add_video</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">urls</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
@@ -11714,6 +12128,583 @@ customize the marker. Defaults to None.</p></td>
     <span class="k">if</span> <span class="n">marker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">marker</span> <span class="o">=</span> <span class="n">Marker</span><span class="p">(</span><span class="n">lng_lat</span><span class="o">=</span><span class="n">lng_lat</span><span class="p">,</span> <span class="n">popup</span><span class="o">=</span><span class="n">popup</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="leafmap.maplibregl.Map.add_overture_3d_buildings" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">add_overture_3d_buildings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">release</span><span class="o">=</span><span class="s1">&#39;2024-07-22&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s1">&#39;simple&#39;</span><span class="p">,</span> <span class="n">fit_bounds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.maplibregl.Map.add_overture_3d_buildings" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add 3D buildings from Overture Maps to the map.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>release</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>The release date of the Overture Maps data.
+Defaults to "2024-07-22". For more info, see
+https://github.com/OvertureMaps/overture-tiles.</p></td>
+        <td><code>&#39;2024-07-22&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>style</code></td>
+        <td><code>Optional[Dict[str, Any]]</code></td>
+        <td><p>The style dictionary for
+the buildings. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>values</code></td>
+        <td><code>Optional[List[int]]</code></td>
+        <td><p>List of height values for
+color interpolation. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>colors</code></td>
+        <td><code>Optional[List[str]]</code></td>
+        <td><p>List of colors corresponding
+to the height values. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>visible</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether the buildings layer is visible.
+Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>opacity</code></td>
+        <td><code>float</code></td>
+        <td><p>The opacity of the buildings layer.
+Defaults to 1.0.</p></td>
+        <td><code>1.0</code></td>
+      </tr>
+      <tr>
+        <td><code>tooltip</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to show tooltips on the buildings.
+Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>template</code></td>
+        <td><code>str</code></td>
+        <td><p>The template for the tooltip. It can be
+"simple" or "all". Defaults to "simple".</p></td>
+        <td><code>&#39;simple&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>fit_bounds</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to fit the map bounds to the
+buildings layer. Defaults to False.</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ValueError</code></td>
+        <td><p>If the length of values and colors lists are not the same.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/maplibregl.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_overture_3d_buildings</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">release</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;2024-07-22&quot;</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">colors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">tooltip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;simple&quot;</span><span class="p">,</span>
+    <span class="n">fit_bounds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add 3D buildings from Overture Maps to the map.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        release (Optional[str], optional): The release date of the Overture Maps data.</span>
+<span class="sd">            Defaults to &quot;2024-07-22&quot;. For more info, see</span>
+<span class="sd">            https://github.com/OvertureMaps/overture-tiles.</span>
+<span class="sd">        style (Optional[Dict[str, Any]], optional): The style dictionary for</span>
+<span class="sd">            the buildings. Defaults to None.</span>
+<span class="sd">        values (Optional[List[int]], optional): List of height values for</span>
+<span class="sd">            color interpolation. Defaults to None.</span>
+<span class="sd">        colors (Optional[List[str]], optional): List of colors corresponding</span>
+<span class="sd">            to the height values. Defaults to None.</span>
+<span class="sd">        visible (bool, optional): Whether the buildings layer is visible.</span>
+<span class="sd">            Defaults to True.</span>
+<span class="sd">        opacity (float, optional): The opacity of the buildings layer.</span>
+<span class="sd">            Defaults to 1.0.</span>
+<span class="sd">        tooltip (bool, optional): Whether to show tooltips on the buildings.</span>
+<span class="sd">            Defaults to True.</span>
+<span class="sd">        template (str, optional): The template for the tooltip. It can be</span>
+<span class="sd">            &quot;simple&quot; or &quot;all&quot;. Defaults to &quot;simple&quot;.</span>
+<span class="sd">        fit_bounds (bool, optional): Whether to fit the map bounds to the</span>
+<span class="sd">            buildings layer. Defaults to False.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the length of values and colors lists are not the same.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://overturemaps-tiles-us-west-2-beta.s3.amazonaws.com/</span><span class="si">{</span><span class="n">release</span><span class="si">}</span><span class="s2">/buildings.pmtiles&quot;</span>
+
+    <span class="k">if</span> <span class="n">template</span> <span class="o">==</span> <span class="s2">&quot;simple&quot;</span><span class="p">:</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;Name: {{@name}}&lt;br&gt;Subtype: {{subtype}}&lt;br&gt;Class: {{class}}&lt;br&gt;Height: {{height}}&quot;</span>
+    <span class="k">elif</span> <span class="n">template</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="s2">&quot;royalblue&quot;</span><span class="p">,</span> <span class="s2">&quot;lightblue&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The values and colors must have the same length.&quot;</span><span class="p">)</span>
+        <span class="n">value_color_pairs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+            <span class="n">value_color_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">value_color_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="n">style</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;buildings&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;building&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill-extrusion&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                        <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                    <span class="p">],</span>  <span class="c1"># only show buildings with height info</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-extrusion-color&quot;</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+                            <span class="p">[</span><span class="s2">&quot;linear&quot;</span><span class="p">],</span>
+                            <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+                        <span class="p">]</span>
+                        <span class="o">+</span> <span class="n">value_color_pairs</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-extrusion-height&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;building-parts&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;building_part&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill-extrusion&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                        <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                    <span class="p">],</span>  <span class="c1"># only show buildings with height info</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-extrusion-color&quot;</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+                            <span class="p">[</span><span class="s2">&quot;linear&quot;</span><span class="p">],</span>
+                            <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span>
+                        <span class="p">]</span>
+                        <span class="o">+</span> <span class="n">value_color_pairs</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-extrusion-height&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_pmtiles</span><span class="p">(</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
+        <span class="n">tooltip</span><span class="o">=</span><span class="n">tooltip</span><span class="p">,</span>
+        <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+        <span class="n">fit_bounds</span><span class="o">=</span><span class="n">fit_bounds</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="leafmap.maplibregl.Map.add_overture_data" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">add_overture_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">release</span><span class="o">=</span><span class="s1">&#39;2024-07-22&#39;</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="s1">&#39;buildings&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fit_bounds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.maplibregl.Map.add_overture_data" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add Overture Maps data to the map.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>release</code></td>
+        <td><code>str</code></td>
+        <td><p>The release date of the data. Defaults to
+"2024-07-22". For more info, see https://github.com/OvertureMaps/overture-tiles</p></td>
+        <td><code>&#39;2024-07-22&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>theme</code></td>
+        <td><code>str</code></td>
+        <td><p>The theme of the data. It can be one of the following:
+"addresses", "base", "buildings", "divisions", "places", "transportation".
+Defaults to "buildings".</p></td>
+        <td><code>&#39;buildings&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>style</code></td>
+        <td><code>Optional[Dict[str, Any]]</code></td>
+        <td><p>The style dictionary for
+the data. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>visible</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether the data layer is visible. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>opacity</code></td>
+        <td><code>float</code></td>
+        <td><p>The opacity of the data layer. Defaults to 1.0.</p></td>
+        <td><code>1.0</code></td>
+      </tr>
+      <tr>
+        <td><code>tooltip</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to show tooltips on the data.
+Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>fit_bounds</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to fit the map bounds to the
+data layer. Defaults to False.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>Any</code></td>
+        <td><p>Additional keyword arguments for the add_pmtiles method.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ValueError</code></td>
+        <td><p>If the theme is not one of the allowed themes.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/maplibregl.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_overture_data</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">release</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2024-07-22&quot;</span><span class="p">,</span>
+    <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;buildings&quot;</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">tooltip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">fit_bounds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add Overture Maps data to the map.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        release (str, optional): The release date of the data. Defaults to</span>
+<span class="sd">            &quot;2024-07-22&quot;. For more info, see https://github.com/OvertureMaps/overture-tiles</span>
+<span class="sd">        theme (str, optional): The theme of the data. It can be one of the following:</span>
+<span class="sd">            &quot;addresses&quot;, &quot;base&quot;, &quot;buildings&quot;, &quot;divisions&quot;, &quot;places&quot;, &quot;transportation&quot;.</span>
+<span class="sd">            Defaults to &quot;buildings&quot;.</span>
+<span class="sd">        style (Optional[Dict[str, Any]], optional): The style dictionary for</span>
+<span class="sd">            the data. Defaults to None.</span>
+<span class="sd">        visible (bool, optional): Whether the data layer is visible. Defaults to True.</span>
+<span class="sd">        opacity (float, optional): The opacity of the data layer. Defaults to 1.0.</span>
+<span class="sd">        tooltip (bool, optional): Whether to show tooltips on the data.</span>
+<span class="sd">            Defaults to True.</span>
+<span class="sd">        fit_bounds (bool, optional): Whether to fit the map bounds to the</span>
+<span class="sd">            data layer. Defaults to False.</span>
+<span class="sd">        **kwargs (Any): Additional keyword arguments for the add_pmtiles method.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the theme is not one of the allowed themes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">allowed_themes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;addresses&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;base&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;buildings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;divisions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;places&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;transportation&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">theme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_themes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;The theme must be one of the following: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">allowed_themes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">styles</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;address&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Infrastructure&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;infrastructure&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8DD3C7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Land&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;land&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FFFFB3&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Land_cover&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;land_cover&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#BEBADA&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Land_use&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;land_use&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FB8072&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Water&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#80B1D3&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;buildings&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Building&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;building&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#6ea299&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Building_part&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;building_part&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#fdfdb2&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;divisions&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Division&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;division&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Division_area&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;division_area&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;fill-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#FFFFB3&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="s2">&quot;fill-outline-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Division_boundary&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;division_boundary&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;line-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#BEBADA&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;line-width&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;places&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Place&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;place&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;transportation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Segment&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;segment&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;line-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#ffffb3&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;line-width&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Connector&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example_source&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;source-layer&quot;</span><span class="p">:</span> <span class="s2">&quot;connector&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paint&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://overturemaps-tiles-us-west-2-beta.s3.amazonaws.com/</span><span class="si">{</span><span class="n">release</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">theme</span><span class="si">}</span><span class="s2">.pmtiles&quot;</span>
+    <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="n">styles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_pmtiles</span><span class="p">(</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+        <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
+        <span class="n">tooltip</span><span class="o">=</span><span class="n">tooltip</span><span class="p">,</span>
+        <span class="n">fit_bounds</span><span class="o">=</span><span class="n">fit_bounds</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
 </code></pre></div>
         </details>
     </div>

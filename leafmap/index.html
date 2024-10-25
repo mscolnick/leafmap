@@ -8415,7 +8415,10 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">nodata</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">band_names</span> <span class="o">=</span> <span class="n">stac_bands</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">titiler_endpoint</span><span class="p">)</span>
-        <span class="n">indexes</span> <span class="o">=</span> <span class="p">[</span><span class="n">band_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">band</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">assets</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">assets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">indexes</span> <span class="o">=</span> <span class="p">[</span><span class="n">band_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">band</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">assets</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">indexes</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
@@ -20341,7 +20344,10 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <span class="n">nodata</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">band_names</span> <span class="o">=</span> <span class="n">stac_bands</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">titiler_endpoint</span><span class="p">)</span>
-    <span class="n">indexes</span> <span class="o">=</span> <span class="p">[</span><span class="n">band_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">band</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">assets</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">assets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">indexes</span> <span class="o">=</span> <span class="p">[</span><span class="n">band_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">band</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">assets</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">indexes</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>

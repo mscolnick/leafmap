@@ -6298,9 +6298,9 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 <span class="sd">            bearing (float, optional): The bearing of the map. Measured in degrees</span>
 <span class="sd">                counter-clockwise from north. Defaults to 0.</span>
 <span class="sd">            style (str, optional): The style of the map. It can be a string or a URL.</span>
-<span class="sd">                If it is a string, it must be one of the following: &quot;dark-matter&quot;,</span>
+<span class="sd">                If it is a string, it must be one of the following: &quot;dark-matter&quot;, &quot;positron&quot;,</span>
 <span class="sd">                &quot;carto-positron&quot;, &quot;voyager&quot;, &quot;positron-nolabels&quot;, &quot;dark-matter-nolabels&quot;,</span>
-<span class="sd">                &quot;voyager-nolabels&quot;, &quot;demotiles&quot;, &quot;liberty&quot;, &quot;bright&quot;, or &quot;positron&quot;.</span>
+<span class="sd">                &quot;voyager-nolabels&quot;, &quot;demotiles&quot;, &quot;liberty&quot;, &quot;bright&quot;, or &quot;positron2&quot;.</span>
 <span class="sd">                If a MapTiler API key is set, you can also use any of the MapTiler styles,</span>
 <span class="sd">                such as aquarelle, backdrop, basic, bright, dataviz, landscape, ocean,</span>
 <span class="sd">                openstreetmap, outdoor, satellite, streets, toner, topo, winter, etc.</span>
@@ -6317,7 +6317,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">carto_basemaps</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;dark-matter&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;carto-positron&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;positron&quot;</span><span class="p">,</span>
             <span class="s2">&quot;voyager&quot;</span><span class="p">,</span>
             <span class="s2">&quot;positron-nolabels&quot;</span><span class="p">,</span>
             <span class="s2">&quot;dark-matter-nolabels&quot;</span><span class="p">,</span>
@@ -6326,7 +6326,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
         <span class="n">openfreemap_basemaps</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;liberty&quot;</span><span class="p">,</span>
             <span class="s2">&quot;bright&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;positron&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;positron2&quot;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 
@@ -6346,10 +6346,10 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
                 <span class="p">)</span>
 
             <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">carto_basemaps</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;carto-positron&quot;</span><span class="p">:</span>
-                    <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;positron&quot;</span>
                 <span class="n">style</span> <span class="o">=</span> <span class="n">construct_carto_basemap_url</span><span class="p">(</span><span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
             <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">openfreemap_basemaps</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;positron2&quot;</span><span class="p">:</span>
+                    <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;positron&quot;</span>
                 <span class="n">style</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://tiles.openfreemap.org/styles/</span><span class="si">{</span><span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">elif</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;demotiles&quot;</span><span class="p">:</span>
                 <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;https://demotiles.maplibre.org/style.json&quot;</span>
@@ -9570,9 +9570,9 @@ counter-clockwise from north. Defaults to 0.</p></td>
         <td><code>style</code></td>
         <td><code>str</code></td>
         <td><p>The style of the map. It can be a string or a URL.
-If it is a string, it must be one of the following: "dark-matter",
+If it is a string, it must be one of the following: "dark-matter", "positron",
 "carto-positron", "voyager", "positron-nolabels", "dark-matter-nolabels",
-"voyager-nolabels", "demotiles", "liberty", "bright", or "positron".
+"voyager-nolabels", "demotiles", "liberty", "bright", or "positron2".
 If a MapTiler API key is set, you can also use any of the MapTiler styles,
 such as aquarelle, backdrop, basic, bright, dataviz, landscape, ocean,
 openstreetmap, outdoor, satellite, streets, toner, topo, winter, etc.
@@ -9646,9 +9646,9 @@ for more information.</p></td>
 <span class="sd">        bearing (float, optional): The bearing of the map. Measured in degrees</span>
 <span class="sd">            counter-clockwise from north. Defaults to 0.</span>
 <span class="sd">        style (str, optional): The style of the map. It can be a string or a URL.</span>
-<span class="sd">            If it is a string, it must be one of the following: &quot;dark-matter&quot;,</span>
+<span class="sd">            If it is a string, it must be one of the following: &quot;dark-matter&quot;, &quot;positron&quot;,</span>
 <span class="sd">            &quot;carto-positron&quot;, &quot;voyager&quot;, &quot;positron-nolabels&quot;, &quot;dark-matter-nolabels&quot;,</span>
-<span class="sd">            &quot;voyager-nolabels&quot;, &quot;demotiles&quot;, &quot;liberty&quot;, &quot;bright&quot;, or &quot;positron&quot;.</span>
+<span class="sd">            &quot;voyager-nolabels&quot;, &quot;demotiles&quot;, &quot;liberty&quot;, &quot;bright&quot;, or &quot;positron2&quot;.</span>
 <span class="sd">            If a MapTiler API key is set, you can also use any of the MapTiler styles,</span>
 <span class="sd">            such as aquarelle, backdrop, basic, bright, dataviz, landscape, ocean,</span>
 <span class="sd">            openstreetmap, outdoor, satellite, streets, toner, topo, winter, etc.</span>
@@ -9665,7 +9665,7 @@ for more information.</p></td>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">carto_basemaps</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;dark-matter&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;carto-positron&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;positron&quot;</span><span class="p">,</span>
         <span class="s2">&quot;voyager&quot;</span><span class="p">,</span>
         <span class="s2">&quot;positron-nolabels&quot;</span><span class="p">,</span>
         <span class="s2">&quot;dark-matter-nolabels&quot;</span><span class="p">,</span>
@@ -9674,7 +9674,7 @@ for more information.</p></td>
     <span class="n">openfreemap_basemaps</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;liberty&quot;</span><span class="p">,</span>
         <span class="s2">&quot;bright&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;positron&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;positron2&quot;</span><span class="p">,</span>
     <span class="p">]</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 
@@ -9694,10 +9694,10 @@ for more information.</p></td>
             <span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">carto_basemaps</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;carto-positron&quot;</span><span class="p">:</span>
-                <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;positron&quot;</span>
             <span class="n">style</span> <span class="o">=</span> <span class="n">construct_carto_basemap_url</span><span class="p">(</span><span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
         <span class="k">elif</span> <span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">openfreemap_basemaps</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;positron2&quot;</span><span class="p">:</span>
+                <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;positron&quot;</span>
             <span class="n">style</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://tiles.openfreemap.org/styles/</span><span class="si">{</span><span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">elif</span> <span class="n">style</span> <span class="o">==</span> <span class="s2">&quot;demotiles&quot;</span><span class="p">:</span>
             <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;https://demotiles.maplibre.org/style.json&quot;</span>

@@ -2772,6 +2772,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#leafmap.common.read_geojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      read_geojson()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#leafmap.common.read_lidar" class="md-nav__link">
     <span class="md-ellipsis">
       read_lidar()
@@ -9918,6 +9927,15 @@
   <a href="#leafmap.common.read_file_from_url" class="md-nav__link">
     <span class="md-ellipsis">
       read_file_from_url()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leafmap.common.read_geojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      read_geojson()
     </span>
   </a>
   
@@ -39701,6 +39719,83 @@ The higher this value, the smaller the number of vertices in the resulting geome
         <span class="k">return</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The return type must be either list or string.&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="leafmap.common.read_geojson" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">read_geojson</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.common.read_geojson" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Fetches and parses a GeoJSON file from a given URL.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>str</code></td>
+        <td><p>The URL of the GeoJSON file.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>Any</code></td>
+        <td><p>Additional keyword arguments to pass to the requests.get() method.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Dict[str, Any]</code></td>
+      <td><p>The parsed GeoJSON data.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">read_geojson</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetches and parses a GeoJSON file from a given URL.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (str): The URL of the GeoJSON file.</span>
+<span class="sd">        **kwargs (Any): Additional keyword arguments to pass to the requests.get() method.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, Any]: The parsed GeoJSON data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </code></pre></div>
         </details>
     </div>

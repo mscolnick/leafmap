@@ -17323,7 +17323,7 @@ https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#zoomto</p>
       <p>Constructs a URL for a MapTiler style with an optional API key.</p>
 <p>This function generates a URL for accessing a specific MapTiler map style. If an API key is not provided,
 it attempts to retrieve one using a predefined method. If the request to MapTiler fails, it defaults to
-a "dark-matter" style.</p>
+a "liberty" style.</p>
 
 <p><strong>Parameters:</strong></p>
 <table>
@@ -17364,7 +17364,7 @@ attempts to retrieve the API key using a predefined method. Defaults to None.</p
   <tbody>
     <tr>
       <td><code>str</code></td>
-      <td><p>The URL for the requested MapTiler style. If the request fails, returns a URL for the "dark-matter" style.</p></td>
+      <td><p>The URL for the requested MapTiler style. If the request fails, returns a URL for the "liberty" style.</p></td>
     </tr>
   </tbody>
 </table>
@@ -17391,7 +17391,7 @@ attempts to retrieve the API key using a predefined method. Defaults to None.</p
 
 <span class="sd">    This function generates a URL for accessing a specific MapTiler map style. If an API key is not provided,</span>
 <span class="sd">    it attempts to retrieve one using a predefined method. If the request to MapTiler fails, it defaults to</span>
-<span class="sd">    a &quot;dark-matter&quot; style.</span>
+<span class="sd">    a &quot;liberty&quot; style.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        style (str): The name of the MapTiler style to be accessed. It can be one of the following:</span>
@@ -17401,7 +17401,7 @@ attempts to retrieve the API key using a predefined method. Defaults to None.</p
 <span class="sd">            attempts to retrieve the API key using a predefined method. Defaults to None.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: The URL for the requested MapTiler style. If the request fails, returns a URL for the &quot;dark-matter&quot; style.</span>
+<span class="sd">        str: The URL for the requested MapTiler style. If the request fails, returns a URL for the &quot;liberty&quot; style.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        requests.exceptions.RequestException: If the request to the MapTiler API fails.</span>
@@ -17415,9 +17415,9 @@ attempts to retrieve the API key using a predefined method. Defaults to None.</p
     <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span>
-            <span class="s2">&quot;Failed to retrieve the MapTiler style. Defaulting to &#39;dark-matter&#39; style.&quot;</span>
+            <span class="s2">&quot;Failed to retrieve the MapTiler style. Defaulting to OpenFreeMap &#39;liberty&#39; style.&quot;</span>
         <span class="p">)</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;dark-matter&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://tiles.openfreemap.org/styles/liberty&quot;</span>
 
     <span class="k">return</span> <span class="n">url</span>
 </code></pre></div>

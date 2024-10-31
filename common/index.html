@@ -1449,15 +1449,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#leafmap.common.find_max_value_coords" class="md-nav__link">
-    <span class="md-ellipsis">
-      find_max_value_coords()
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#leafmap.common.gdb_layer_names" class="md-nav__link">
     <span class="md-ellipsis">
       gdb_layer_names()
@@ -2721,6 +2712,15 @@
   <a href="#leafmap.common.png_to_gif" class="md-nav__link">
     <span class="md-ellipsis">
       png_to_gif()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leafmap.common.point_to_gdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      point_to_gdf()
     </span>
   </a>
   
@@ -8619,15 +8619,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#leafmap.common.find_max_value_coords" class="md-nav__link">
-    <span class="md-ellipsis">
-      find_max_value_coords()
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#leafmap.common.gdb_layer_names" class="md-nav__link">
     <span class="md-ellipsis">
       gdb_layer_names()
@@ -9891,6 +9882,15 @@
   <a href="#leafmap.common.png_to_gif" class="md-nav__link">
     <span class="md-ellipsis">
       png_to_gif()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leafmap.common.point_to_gdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      point_to_gdf()
     </span>
   </a>
   
@@ -21306,122 +21306,6 @@ leafmap.download_files(urls, out_dir="models", multi_part=True)</p>
 
 
 
-<h2 id="leafmap.common.find_max_value_coords" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">find_max_value_coords</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">band_dix</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dst_crs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-
-<a href="#leafmap.common.find_max_value_coords" class="headerlink" title="Permanent link">&para;</a></h2>
-
-    <div class="doc doc-contents ">
-
-      <p>Find the coordinates of the pixel with the maximum value in a GeoTIFF file.</p>
-
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>geotiff_file</code></td>
-        <td><code>str</code></td>
-        <td><p>Path to the GeoTIFF file.</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>band_dix</code></td>
-        <td><code>int</code></td>
-        <td><p>The band index (default is 1).</p></td>
-        <td><code>1</code></td>
-      </tr>
-      <tr>
-        <td><code>dst_crs</code></td>
-        <td><code>str</code></td>
-        <td><p>The destination CRS in EPSG format (e.g., "EPSG:4326").
-                     If None, returns the original x, y coordinates.</p></td>
-        <td><code>None</code></td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>tuple</code></td>
-      <td><p>x, y coordinates of the pixel with the maximum value, and the maximum value.
-       If dst_crs is provided, returns the reprojected coordinates.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>leafmap/common.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">find_max_value_coords</span><span class="p">(</span>
-    <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">band_dix</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dst_crs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Find the coordinates of the pixel with the maximum value in a GeoTIFF file.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        geotiff_file (str): Path to the GeoTIFF file.</span>
-<span class="sd">        band_dix (int, optional): The band index (default is 1).</span>
-<span class="sd">        dst_crs (str, optional): The destination CRS in EPSG format (e.g., &quot;EPSG:4326&quot;).</span>
-<span class="sd">                                 If None, returns the original x, y coordinates.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        tuple: x, y coordinates of the pixel with the maximum value, and the maximum value.</span>
-<span class="sd">               If dst_crs is provided, returns the reprojected coordinates.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">rasterio</span>
-    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-    <span class="kn">from</span> <span class="nn">rasterio.transform</span> <span class="kn">import</span> <span class="n">xy</span>
-    <span class="kn">from</span> <span class="nn">pyproj</span> <span class="kn">import</span> <span class="n">Transformer</span>
-
-    <span class="c1"># Open the GeoTIFF file</span>
-    <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
-        <span class="c1"># Read the raster data (assuming band 1)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">band_dix</span><span class="p">)</span>
-
-        <span class="c1"># Find the index of the maximum value</span>
-        <span class="n">max_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">max_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-        <span class="c1"># Get the row and column of the pixel with the maximum value</span>
-        <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">max_index</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">col</span><span class="p">,</span> <span class="n">row</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Row: </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">, Column: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Get the original coordinates (x, y) of the pixel</span>
-
-        <span class="c1"># If a destination CRS is provided, transform the coordinates</span>
-        <span class="k">if</span> <span class="n">dst_crs</span><span class="p">:</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">xy</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
-            <span class="n">transformer</span> <span class="o">=</span> <span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">dst_crs</span><span class="p">,</span> <span class="n">always_xy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">max_value</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
 <h2 id="leafmap.common.gdb_layer_names" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">gdb_layer_names</span><span class="p">(</span><span class="n">gdb_path</span><span class="p">)</span></code>
 
@@ -25838,7 +25722,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
 
 <h2 id="leafmap.common.get_max_pixel_coords" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_max_pixel_coords</span><span class="p">(</span><span class="n">geotiff_path</span><span class="p">,</span> <span class="n">band_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">get_max_pixel_coords</span><span class="p">(</span><span class="n">geotiff_path</span><span class="p">,</span> <span class="n">band_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_gdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.common.get_max_pixel_coords" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -25882,6 +25766,18 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <td><p>Desired output coordinate system in EPSG format (e.g., "EPSG:4326").</p></td>
         <td><code>&#39;EPSG:4326&#39;</code></td>
       </tr>
+      <tr>
+        <td><code>output</code></td>
+        <td><code>str</code></td>
+        <td><p>Path to save the output GeoDataFrame (default is None).</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>return_gdf</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to return a GeoDataFrame (default is True).</p></td>
+        <td><code>True</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -25901,7 +25797,15 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 </table>
         <details class="quote">
           <summary>Source code in <code>leafmap/common.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_max_pixel_coords</span><span class="p">(</span><span class="n">geotiff_path</span><span class="p">,</span> <span class="n">band_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst_crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_max_pixel_coords</span><span class="p">(</span>
+    <span class="n">geotiff_path</span><span class="p">,</span>
+    <span class="n">band_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">dst_crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span>
+    <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">return_gdf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the geographic coordinates of the maximum pixel value in a GeoTIFF.</span>
 
@@ -25910,6 +25814,8 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">        band_idx (int): Band index to use (default is 1).</span>
 <span class="sd">        roi (str): Path to a vector dataset containing the region of interest (default is None).</span>
 <span class="sd">        dst_crs (str): Desired output coordinate system in EPSG format (e.g., &quot;EPSG:4326&quot;).</span>
+<span class="sd">        output (str): Path to save the output GeoDataFrame (default is None).</span>
+<span class="sd">        return_gdf (bool): Whether to return a GeoDataFrame (default is True).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        dict: Maximum pixel value and its geographic coordinates in the specified CRS.</span>
@@ -25924,7 +25830,16 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
     <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">geotiff_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataset</span><span class="p">:</span>
         <span class="c1"># If ROI is provided, handle potential CRS differences</span>
         <span class="k">if</span> <span class="n">roi</span><span class="p">:</span>
-            <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">):</span>
+                <span class="n">gdf</span> <span class="o">=</span> <span class="n">roi</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_features</span><span class="p">([</span><span class="n">roi</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Invalid ROI input. Must be a file path or a GeoDataFrame.&quot;</span>
+                <span class="p">)</span>
             <span class="n">roi_geojson</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span>
 
             <span class="c1"># Reproject ROI to match the raster&#39;s CRS if necessary</span>
@@ -25962,7 +25877,22 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <span class="n">src_crs</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">crs</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">src_crs</span><span class="p">,</span> <span class="n">dst_crs</span><span class="p">,</span> <span class="p">[</span><span class="n">original_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">original_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;max_value&quot;</span><span class="p">:</span> <span class="n">max_value</span><span class="p">,</span> <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;crs&quot;</span><span class="p">:</span> <span class="n">dst_crs</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">return_gdf</span><span class="p">:</span>
+            <span class="n">x_coords</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">y_coords</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="c1"># Create a DataFrame</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">x_coords</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">y_coords</span><span class="p">})</span>
+
+            <span class="c1"># Convert the DataFrame to a GeoDataFrame</span>
+            <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+                <span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="n">dst_crs</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                <span class="n">gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;max_value&quot;</span><span class="p">:</span> <span class="n">max_value</span><span class="p">,</span> <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;crs&quot;</span><span class="p">:</span> <span class="n">dst_crs</span><span class="p">}</span>
 </code></pre></div>
         </details>
     </div>
@@ -26465,7 +26395,7 @@ https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/rest/services/Wetlands
     <span class="k">else</span><span class="p">:</span>
         <span class="n">geometry_json</span> <span class="o">=</span> <span class="n">geometry_dict</span>
     <span class="c1"># API URL for querying wetlands</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/rest/services/Wetlands/FeatureServer/0/query&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/rest/services/Wetlands/MapServer/0/query&quot;</span>
 
     <span class="c1"># Construct the query parameters</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -39228,6 +39158,101 @@ determined automatically based on the color map. Defaults to None.</p></td>
 
 
 
+<h2 id="leafmap.common.point_to_gdf" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">point_to_gdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">point_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span> <span class="n">to_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.common.point_to_gdf" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Convert a point to a GeoDataFrame.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td><code>float</code></td>
+        <td><p>X coordinate of the point.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>y</code></td>
+        <td><code>float</code></td>
+        <td><p>Y coordinate of the point.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>point_crs</code></td>
+        <td><code>str</code></td>
+        <td><p>Coordinate Reference System of the point.</p></td>
+        <td><code>&#39;EPSG:4326&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>gpd.GeoDataFrame</code></td>
+      <td><p>GeoDataFrame containing the point.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">point_to_gdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">point_crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span> <span class="n">to_crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a point to a GeoDataFrame.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (float): X coordinate of the point.</span>
+<span class="sd">        y (float): Y coordinate of the point.</span>
+<span class="sd">        point_crs (str): Coordinate Reference System of the point.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        gpd.GeoDataFrame: GeoDataFrame containing the point.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+    <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+
+    <span class="c1"># Create a Point object</span>
+    <span class="n">point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># Convert the Point to a GeoDataFrame</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">([{</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">point</span><span class="p">}],</span> <span class="n">crs</span><span class="o">=</span><span class="n">point_crs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">to_crs</span> <span class="o">!=</span> <span class="n">point_crs</span><span class="p">:</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">to_crs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">gdf</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
 <h2 id="leafmap.common.points_from_xy" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">points_from_xy</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
@@ -40353,6 +40378,7 @@ The higher this value, the smaller the number of vertices in the resulting geome
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;exclude_columns must be a list or a string.&quot;</span><span class="p">)</span>
         <span class="n">columns</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2"> EXCLUDE </span><span class="si">{</span><span class="n">exclude</span><span class="si">}</span><span class="s2">&quot;</span>
 
+    <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">return_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;df&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;arrow&quot;</span><span class="p">,</span> <span class="s2">&quot;polars&quot;</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">sql</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT </span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2"> FROM &#39;</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
@@ -40378,7 +40404,7 @@ The higher this value, the smaller the number of vertices in the resulting geome
             <span class="c1"># if src_crs is not None and dst_crs is not None:</span>
             <span class="c1">#     geom_sql = f&quot;ST_AsText(ST_Transform(ST_GeomFromWKB({geometry}), &#39;{src_crs}&#39;, &#39;{dst_crs}&#39;, true)) AS {geometry}&quot;</span>
             <span class="c1"># else:</span>
-            <span class="n">geom_sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ST_AsText(ST_GeomFromWKB(</span><span class="si">{</span><span class="n">geometry</span><span class="si">}</span><span class="s2">)) AS </span><span class="si">{</span><span class="n">geometry</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">geom_sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ST_AsText(ST_GeomFromWKB(ST_AsWKB(</span><span class="si">{</span><span class="n">geometry</span><span class="si">}</span><span class="s2">))) AS </span><span class="si">{</span><span class="n">geometry</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT </span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2"> EXCLUDE </span><span class="si">{</span><span class="n">geometry</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">geom_sql</span><span class="si">}</span><span class="s2"> FROM &#39;</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
         <span class="k">if</span> <span class="n">limit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sql</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; LIMIT </span><span class="si">{</span><span class="n">limit</span><span class="si">}</span><span class="s2">&quot;</span>

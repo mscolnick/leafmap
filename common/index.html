@@ -1764,6 +1764,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#leafmap.common.get_max_pixel_coords" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_max_pixel_coords()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#leafmap.common.get_nhd" class="md-nav__link">
     <span class="md-ellipsis">
       get_nhd()
@@ -8919,6 +8928,15 @@
   <a href="#leafmap.common.get_local_tile_layer" class="md-nav__link">
     <span class="md-ellipsis">
       get_local_tile_layer()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leafmap.common.get_max_pixel_coords" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_max_pixel_coords()
     </span>
   </a>
   
@@ -25807,6 +25825,144 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
     <span class="c1">#     return tile_layer, bounds</span>
     <span class="c1"># else:</span>
     <span class="c1">#     return tile_layer</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="leafmap.common.get_max_pixel_coords" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_max_pixel_coords</span><span class="p">(</span><span class="n">geotiff_path</span><span class="p">,</span> <span class="n">band_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst_crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.common.get_max_pixel_coords" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Find the geographic coordinates of the maximum pixel value in a GeoTIFF.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>geotiff_path</code></td>
+        <td><code>str</code></td>
+        <td><p>Path to the GeoTIFF file.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>band_idx</code></td>
+        <td><code>int</code></td>
+        <td><p>Band index to use (default is 1).</p></td>
+        <td><code>1</code></td>
+      </tr>
+      <tr>
+        <td><code>roi</code></td>
+        <td><code>str</code></td>
+        <td><p>Path to a vector dataset containing the region of interest (default is None).</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>dst_crs</code></td>
+        <td><code>str</code></td>
+        <td><p>Desired output coordinate system in EPSG format (e.g., "EPSG:4326").</p></td>
+        <td><code>&#39;EPSG:4326&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dict</code></td>
+      <td><p>Maximum pixel value and its geographic coordinates in the specified CRS.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_max_pixel_coords</span><span class="p">(</span><span class="n">geotiff_path</span><span class="p">,</span> <span class="n">band_idx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst_crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the geographic coordinates of the maximum pixel value in a GeoTIFF.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        geotiff_path (str): Path to the GeoTIFF file.</span>
+<span class="sd">        band_idx (int): Band index to use (default is 1).</span>
+<span class="sd">        roi (str): Path to a vector dataset containing the region of interest (default is None).</span>
+<span class="sd">        dst_crs (str): Desired output coordinate system in EPSG format (e.g., &quot;EPSG:4326&quot;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Maximum pixel value and its geographic coordinates in the specified CRS.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">rasterio</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+    <span class="kn">from</span> <span class="nn">rasterio.warp</span> <span class="kn">import</span> <span class="n">transform</span>
+    <span class="kn">from</span> <span class="nn">rasterio.mask</span> <span class="kn">import</span> <span class="n">mask</span>
+    <span class="kn">from</span> <span class="nn">rasterio.warp</span> <span class="kn">import</span> <span class="n">transform</span><span class="p">,</span> <span class="n">transform_geom</span>
+
+    <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">geotiff_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataset</span><span class="p">:</span>
+        <span class="c1"># If ROI is provided, handle potential CRS differences</span>
+        <span class="k">if</span> <span class="n">roi</span><span class="p">:</span>
+            <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
+            <span class="n">roi_geojson</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span>
+
+            <span class="c1"># Reproject ROI to match the raster&#39;s CRS if necessary</span>
+            <span class="n">roi_crs</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">crs</span>
+            <span class="k">if</span> <span class="n">roi_crs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">roi_crs</span> <span class="o">=</span> <span class="s2">&quot;EPSG:4326&quot;</span>
+            <span class="k">if</span> <span class="n">roi_crs</span> <span class="o">!=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_string</span><span class="p">():</span>
+                <span class="n">roi_geojson</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transform_geom</span><span class="p">(</span>
+                    <span class="n">roi_crs</span><span class="p">,</span>
+                    <span class="n">dataset</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_string</span><span class="p">(),</span>
+                    <span class="n">roi_geojson</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;geometry&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Mask the raster using the transformed ROI geometry</span>
+            <span class="n">clipped_band</span><span class="p">,</span> <span class="n">clipped_transform</span> <span class="o">=</span> <span class="n">mask</span><span class="p">(</span>
+                <span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="n">roi_geojson</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;geometry&quot;</span><span class="p">]],</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="n">band</span> <span class="o">=</span> <span class="n">clipped_band</span><span class="p">[</span>
+                <span class="n">band_idx</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="p">]</span>  <span class="c1"># Mask returns a 3D array (bands, rows, cols), so select the first band</span>
+            <span class="n">transform_to_use</span> <span class="o">=</span> <span class="n">clipped_transform</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use the entire raster</span>
+            <span class="n">band</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">band_idx</span><span class="p">)</span>
+            <span class="n">transform_to_use</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">transform</span>
+
+        <span class="c1"># Find the maximum value and its index</span>
+        <span class="n">max_value</span> <span class="o">=</span> <span class="n">band</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">max_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">band</span><span class="o">.</span><span class="n">argmax</span><span class="p">(),</span> <span class="n">band</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c1"># Convert pixel coordinates to the raster&#39;s CRS coordinates</span>
+        <span class="n">original_coords</span> <span class="o">=</span> <span class="n">transform_to_use</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_index</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">max_index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Transform coordinates to the desired CRS</span>
+        <span class="n">src_crs</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">crs</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">src_crs</span><span class="p">,</span> <span class="n">dst_crs</span><span class="p">,</span> <span class="p">[</span><span class="n">original_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">original_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;max_value&quot;</span><span class="p">:</span> <span class="n">max_value</span><span class="p">,</span> <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;crs&quot;</span><span class="p">:</span> <span class="n">dst_crs</span><span class="p">}</span>
 </code></pre></div>
         </details>
     </div>

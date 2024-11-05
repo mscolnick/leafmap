@@ -31470,7 +31470,7 @@ None, all bands are used.</p></td>
 
 
 <h2 id="leafmap.common.image_to_cog" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">image_to_cog</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dst_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="s1">&#39;deflate&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">image_to_cog</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dst_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="s1">&#39;deflate&#39;</span><span class="p">,</span> <span class="n">BIGTIFF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.common.image_to_cog" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -31508,6 +31508,12 @@ None, all bands are used.</p></td>
         <td><p>COG profile. More at https://cogeotiff.github.io/rio-cogeo/profile. Defaults to "deflate".</p></td>
         <td><code>&#39;deflate&#39;</code></td>
       </tr>
+      <tr>
+        <td><code>BIGTIFF</code></td>
+        <td><code>str</code></td>
+        <td><p>Create a BigTIFF file. Can be "IF_SAFER" or "YES". Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
@@ -31531,13 +31537,14 @@ None, all bands are used.</p></td>
 </table>
         <details class="quote">
           <summary>Source code in <code>leafmap/common.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">image_to_cog</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dst_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="s2">&quot;deflate&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">image_to_cog</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dst_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="s2">&quot;deflate&quot;</span><span class="p">,</span> <span class="n">BIGTIFF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts an image to a COG file.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        source (str): A dataset path, URL or rasterio.io.DatasetReader object.</span>
 <span class="sd">        dst_path (str, optional): An output dataset path or or PathLike object. Defaults to None.</span>
 <span class="sd">        profile (str, optional): COG profile. More at https://cogeotiff.github.io/rio-cogeo/profile. Defaults to &quot;deflate&quot;.</span>
+<span class="sd">        BIGTIFF (str, optional): Create a BigTIFF file. Can be &quot;IF_SAFER&quot; or &quot;YES&quot;. Defaults to None.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ImportError: If rio-cogeo is not installed.</span>
@@ -31567,6 +31574,11 @@ None, all bands are used.</p></td>
     <span class="n">dst_path</span> <span class="o">=</span> <span class="n">check_file_path</span><span class="p">(</span><span class="n">dst_path</span><span class="p">)</span>
 
     <span class="n">dst_profile</span> <span class="o">=</span> <span class="n">cog_profiles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;dst_kwargs&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">dst_profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dst_kwargs&quot;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">BIGTIFF</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dst_profile</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;BIGTIFF&quot;</span><span class="p">:</span> <span class="n">BIGTIFF</span><span class="p">})</span>
     <span class="n">cog_translate</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dst_path</span><span class="p">,</span> <span class="n">dst_profile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>

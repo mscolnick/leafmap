@@ -6526,6 +6526,8 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
         <span class="n">layer</span><span class="p">:</span> <span class="s2">&quot;Layer&quot;</span><span class="p">,</span>
         <span class="n">before_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a layer to the map.</span>
@@ -6541,6 +6543,8 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 <span class="sd">                the new layer should be inserted.</span>
 <span class="sd">            name (str, optional): The name to use as the key to store the layer</span>
 <span class="sd">                in the layer dictionary. If None, the layer&#39;s ID is used as the key.</span>
+<span class="sd">            opacity (float, optional): The opacity of the layer. Defaults to 1.0.</span>
+<span class="sd">            visible (bool, optional): Whether the layer is visible by default.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -6567,12 +6571,14 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;layer&quot;</span><span class="p">:</span> <span class="n">layer</span><span class="p">,</span>
-            <span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-            <span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="n">opacity</span><span class="p">,</span>
+            <span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="n">visible</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
             <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">before_id</span><span class="o">=</span><span class="n">before_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_visibility</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">visible</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_opacity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -6743,6 +6749,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
     <span class="k">def</span> <span class="nf">add_draw_control</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">controls</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">position</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;top-left&quot;</span><span class="p">,</span>
         <span class="n">geojson</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -6757,6 +6764,10 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 <span class="sd">        Args:</span>
 <span class="sd">            options (Optional[Dict[str, Any]]): Configuration options for the</span>
 <span class="sd">                drawing control. Defaults to None.</span>
+<span class="sd">            controls (Optional[Dict[str, Any]]): The drawing controls to enable.</span>
+<span class="sd">                Can be one or more of the following: &#39;polygon&#39;, &#39;line_string&#39;,</span>
+<span class="sd">                &#39;point&#39;, &#39;trash&#39;, &#39;combine_features&#39;, &#39;uncombine_features&#39;.</span>
+<span class="sd">                Defaults to None.</span>
 <span class="sd">            position (str): The position of the control on the map. Defaults</span>
 <span class="sd">                to &quot;top-left&quot;.</span>
 <span class="sd">            geojson (Optional[Dict[str, Any]]): Initial GeoJSON data to load</span>
@@ -6768,6 +6779,28 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="kn">from</span> <span class="nn">maplibre.plugins</span> <span class="kn">import</span> <span class="n">MapboxDrawControls</span><span class="p">,</span> <span class="n">MapboxDrawOptions</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">controls</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;polygon&quot;</span><span class="p">:</span>
+                    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;polygon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;line_string&quot;</span><span class="p">:</span>
+                    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;line_string&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;point&quot;</span><span class="p">:</span>
+                    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;point&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;trash&quot;</span><span class="p">:</span>
+                    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;trash&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;combine_features&quot;</span><span class="p">:</span>
+                    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;combine_features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;uncombine_features&quot;</span><span class="p">:</span>
+                    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;uncombine_features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="n">options</span> <span class="o">=</span> <span class="n">MapboxDrawOptions</span><span class="p">(</span>
+                <span class="n">display_controls_default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">controls</span><span class="o">=</span><span class="n">MapboxDrawControls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">),</span>
+            <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_mapbox_draw</span><span class="p">(</span>
             <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="n">geojson</span><span class="o">=</span><span class="n">geojson</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
@@ -7085,11 +7118,10 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
             <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">before_id</span><span class="o">=</span><span class="n">before_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">before_id</span><span class="o">=</span><span class="n">before_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_popup</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">fit_bounds</span> <span class="ow">and</span> <span class="n">bounds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fit_bounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_visibility</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">visible</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paint</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">-opacity&quot;</span> <span class="ow">in</span> <span class="n">paint</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_opacity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">paint</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">-opacity&quot;</span><span class="p">])</span>
@@ -9164,6 +9196,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
         <span class="n">min_zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
         <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span>
         <span class="n">colors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="s2">&quot;royalblue&quot;</span><span class="p">,</span> <span class="s2">&quot;lightblue&quot;</span><span class="p">],</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a 3D buildings layer to the map.</span>
@@ -9178,6 +9211,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 <span class="sd">            values (List[int]): A list of height values (in meters) used for color interpolation. Defaults to [0, 200, 400].</span>
 <span class="sd">            colors (List[str]): A list of colors corresponding to the &#39;values&#39; list. Each color is applied to the</span>
 <span class="sd">                building height range defined by the &#39;values&#39;. Defaults to [&quot;lightgray&quot;, &quot;royalblue&quot;, &quot;lightblue&quot;].</span>
+<span class="sd">            **kwargs: Additional keyword arguments to pass to the add_layer method.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: If the lengths of &#39;values&#39; and &#39;colors&#39; lists do not match.</span>
@@ -9231,7 +9265,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
             <span class="p">},</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="s2">&quot;openmaptiles&quot;</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_overture_3d_buildings</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -9763,6 +9797,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
         <span class="n">x</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
         <span class="n">y</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
         <span class="n">columns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">color_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">radius</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
         <span class="n">circle_color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -9827,12 +9862,22 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 
         <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="s2">&quot;annotation&quot;</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-                <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">color_column</span> <span class="o">=</span> <span class="s2">&quot;category&quot;</span>
+                <span class="n">gdf</span><span class="p">[</span><span class="n">color_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;annotation&quot;</span><span class="p">,</span>
+                    <span class="n">color_column</span><span class="p">,</span>
+                    <span class="s2">&quot;geometry&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
                 <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;gdf&quot;</span><span class="p">,</span> <span class="n">gdf</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">circle_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">circle_color</span> <span class="o">=</span> <span class="p">[</span>
                         <span class="s2">&quot;match&quot;</span><span class="p">,</span>
-                        <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">],</span>
+                        <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">color_column</span><span class="p">],</span>
                         <span class="s2">&quot;doorstep&quot;</span><span class="p">,</span>
                         <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;doorstep&quot;</span><span class="p">],</span>
                         <span class="s2">&quot;indoor&quot;</span><span class="p">,</span>
@@ -10121,7 +10166,7 @@ for more information.</p></td>
 
 
 <h3 id="leafmap.maplibregl.Map.add_3d_buildings" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_3d_buildings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;buildings&#39;</span><span class="p">,</span> <span class="n">min_zoom</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="s1">&#39;royalblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightblue&#39;</span><span class="p">])</span></code>
+<code class="highlight language-python"><span class="n">add_3d_buildings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;buildings&#39;</span><span class="p">,</span> <span class="n">min_zoom</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="s1">&#39;royalblue&#39;</span><span class="p">,</span> <span class="s1">&#39;lightblue&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.maplibregl.Map.add_3d_buildings" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -10169,6 +10214,12 @@ The layer is only visible from a certain zoom level, specified by the 'min_zoom'
 building height range defined by the 'values'. Defaults to ["lightgray", "royalblue", "lightblue"].</p></td>
         <td><code>[&#39;lightgray&#39;, &#39;royalblue&#39;, &#39;lightblue&#39;]</code></td>
       </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>Any</code></td>
+        <td><p>Additional keyword arguments to pass to the add_layer method.</p></td>
+        <td><code>{}</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
@@ -10209,6 +10260,7 @@ building height range defined by the 'values'. Defaults to ["lightgray", "royalb
     <span class="n">min_zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
     <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span>
     <span class="n">colors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="s2">&quot;royalblue&quot;</span><span class="p">,</span> <span class="s2">&quot;lightblue&quot;</span><span class="p">],</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Adds a 3D buildings layer to the map.</span>
@@ -10223,6 +10275,7 @@ building height range defined by the 'values'. Defaults to ["lightgray", "royalb
 <span class="sd">        values (List[int]): A list of height values (in meters) used for color interpolation. Defaults to [0, 200, 400].</span>
 <span class="sd">        colors (List[str]): A list of colors corresponding to the &#39;values&#39; list. Each color is applied to the</span>
 <span class="sd">            building height range defined by the &#39;values&#39;. Defaults to [&quot;lightgray&quot;, &quot;royalblue&quot;, &quot;lightblue&quot;].</span>
+<span class="sd">        **kwargs: Additional keyword arguments to pass to the add_layer method.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If the lengths of &#39;values&#39; and &#39;colors&#39; lists do not match.</span>
@@ -10276,7 +10329,7 @@ building height range defined by the 'values'. Defaults to ["lightgray", "royalb
         <span class="p">},</span>
     <span class="p">}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="s2">&quot;openmaptiles&quot;</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -11334,7 +11387,7 @@ or a dictionary where keys are layer ids and values are mustache template string
 
 
 <h3 id="leafmap.maplibregl.Map.add_draw_control" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;top-left&#39;</span><span class="p">,</span> <span class="n">geojson</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;top-left&#39;</span><span class="p">,</span> <span class="n">geojson</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.maplibregl.Map.add_draw_control" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -11362,6 +11415,15 @@ the map. The options, position, and initial GeoJSON can be customized.</p>
         <td><code>Optional[Dict[str, Any]]</code></td>
         <td><p>Configuration options for the
 drawing control. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>controls</code></td>
+        <td><code>Optional[Dict[str, Any]]</code></td>
+        <td><p>The drawing controls to enable.
+Can be one or more of the following: 'polygon', 'line_string',
+'point', 'trash', 'combine_features', 'uncombine_features'.
+Defaults to None.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
@@ -11407,6 +11469,7 @@ drawing control.</p></td>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_draw_control</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">controls</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">position</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;top-left&quot;</span><span class="p">,</span>
     <span class="n">geojson</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -11421,6 +11484,10 @@ drawing control.</p></td>
 <span class="sd">    Args:</span>
 <span class="sd">        options (Optional[Dict[str, Any]]): Configuration options for the</span>
 <span class="sd">            drawing control. Defaults to None.</span>
+<span class="sd">        controls (Optional[Dict[str, Any]]): The drawing controls to enable.</span>
+<span class="sd">            Can be one or more of the following: &#39;polygon&#39;, &#39;line_string&#39;,</span>
+<span class="sd">            &#39;point&#39;, &#39;trash&#39;, &#39;combine_features&#39;, &#39;uncombine_features&#39;.</span>
+<span class="sd">            Defaults to None.</span>
 <span class="sd">        position (str): The position of the control on the map. Defaults</span>
 <span class="sd">            to &quot;top-left&quot;.</span>
 <span class="sd">        geojson (Optional[Dict[str, Any]]): Initial GeoJSON data to load</span>
@@ -11432,6 +11499,28 @@ drawing control.</p></td>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="kn">from</span> <span class="nn">maplibre.plugins</span> <span class="kn">import</span> <span class="n">MapboxDrawControls</span><span class="p">,</span> <span class="n">MapboxDrawOptions</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">controls</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;polygon&quot;</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="s2">&quot;polygon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;line_string&quot;</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="s2">&quot;line_string&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;point&quot;</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="s2">&quot;point&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;trash&quot;</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="s2">&quot;trash&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;combine_features&quot;</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="s2">&quot;combine_features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">control</span> <span class="o">==</span> <span class="s2">&quot;uncombine_features&quot;</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="s2">&quot;uncombine_features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="n">MapboxDrawOptions</span><span class="p">(</span>
+            <span class="n">display_controls_default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">controls</span><span class="o">=</span><span class="n">MapboxDrawControls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">),</span>
+        <span class="p">)</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_mapbox_draw</span><span class="p">(</span>
         <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="n">geojson</span><span class="o">=</span><span class="n">geojson</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span>
@@ -12094,11 +12183,10 @@ See https://maplibre.org/maplibre-style-spec/layers/ for more info.</p></td>
         <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">before_id</span><span class="o">=</span><span class="n">before_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">before_id</span><span class="o">=</span><span class="n">before_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">add_popup</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">fit_bounds</span> <span class="ow">and</span> <span class="n">bounds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit_bounds</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">set_visibility</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">visible</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paint</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">-opacity&quot;</span> <span class="ow">in</span> <span class="n">paint</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_opacity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">paint</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">-opacity&quot;</span><span class="p">])</span>
@@ -12117,7 +12205,7 @@ See https://maplibre.org/maplibre-style-spec/layers/ for more info.</p></td>
 
 
 <h3 id="leafmap.maplibregl.Map.add_gps_trace" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_gps_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">circle_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stroke_color</span><span class="o">=</span><span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">paint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;GPS Trace&#39;</span><span class="p">,</span> <span class="n">add_line</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_gps_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">circle_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stroke_color</span><span class="o">=</span><span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">paint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;GPS Trace&#39;</span><span class="p">,</span> <span class="n">add_line</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.maplibregl.Map.add_gps_trace" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -12252,6 +12340,7 @@ See https://maplibre.org/maplibre-style-spec/layers/ for more info.</p></td>
     <span class="n">x</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
     <span class="n">y</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
     <span class="n">columns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">color_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">radius</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="n">circle_color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -12316,12 +12405,22 @@ See https://maplibre.org/maplibre-style-spec/layers/ for more info.</p></td>
 
     <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;annotation&quot;</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-            <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">color_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">color_column</span> <span class="o">=</span> <span class="s2">&quot;category&quot;</span>
+            <span class="n">gdf</span><span class="p">[</span><span class="n">color_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;annotation&quot;</span><span class="p">,</span>
+                <span class="n">color_column</span><span class="p">,</span>
+                <span class="s2">&quot;geometry&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
             <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;gdf&quot;</span><span class="p">,</span> <span class="n">gdf</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">circle_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">circle_color</span> <span class="o">=</span> <span class="p">[</span>
                     <span class="s2">&quot;match&quot;</span><span class="p">,</span>
-                    <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">color_column</span><span class="p">],</span>
                     <span class="s2">&quot;doorstep&quot;</span><span class="p">,</span>
                     <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;doorstep&quot;</span><span class="p">],</span>
                     <span class="s2">&quot;indoor&quot;</span><span class="p">,</span>
@@ -12669,7 +12768,7 @@ Can be one of 'top-right', 'top-left', 'bottom-right', 'bottom-left'.</p></td>
 
 
 <h3 id="leafmap.maplibregl.Map.add_layer" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">before_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">before_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.maplibregl.Map.add_layer" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -12713,6 +12812,18 @@ the new layer should be inserted.</p></td>
 in the layer dictionary. If None, the layer's ID is used as the key.</p></td>
         <td><code>None</code></td>
       </tr>
+      <tr>
+        <td><code>opacity</code></td>
+        <td><code>float</code></td>
+        <td><p>The opacity of the layer. Defaults to 1.0.</p></td>
+        <td><code>1.0</code></td>
+      </tr>
+      <tr>
+        <td><code>visible</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether the layer is visible by default.</p></td>
+        <td><code>True</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -12737,6 +12848,8 @@ in the layer dictionary. If None, the layer's ID is used as the key.</p></td>
     <span class="n">layer</span><span class="p">:</span> <span class="s2">&quot;Layer&quot;</span><span class="p">,</span>
     <span class="n">before_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Adds a layer to the map.</span>
@@ -12752,6 +12865,8 @@ in the layer dictionary. If None, the layer's ID is used as the key.</p></td>
 <span class="sd">            the new layer should be inserted.</span>
 <span class="sd">        name (str, optional): The name to use as the key to store the layer</span>
 <span class="sd">            in the layer dictionary. If None, the layer&#39;s ID is used as the key.</span>
+<span class="sd">        opacity (float, optional): The opacity of the layer. Defaults to 1.0.</span>
+<span class="sd">        visible (bool, optional): Whether the layer is visible by default.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -12778,12 +12893,14 @@ in the layer dictionary. If None, the layer's ID is used as the key.</p></td>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;layer&quot;</span><span class="p">:</span> <span class="n">layer</span><span class="p">,</span>
-        <span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-        <span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="n">opacity</span><span class="p">,</span>
+        <span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="n">visible</span><span class="p">,</span>
         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
         <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">before_id</span><span class="o">=</span><span class="n">before_id</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_visibility</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">visible</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_opacity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>

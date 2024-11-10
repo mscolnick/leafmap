@@ -2898,6 +2898,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#leafmap.common.replace_underscores_in_keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      replace_underscores_in_keys()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#leafmap.common.reproject" class="md-nav__link">
     <span class="md-ellipsis">
       reproject()
@@ -10113,6 +10122,15 @@
   <a href="#leafmap.common.replace_top_level_hyphens" class="md-nav__link">
     <span class="md-ellipsis">
       replace_top_level_hyphens()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leafmap.common.replace_underscores_in_keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      replace_underscores_in_keys()
     </span>
   </a>
   
@@ -41374,6 +41392,84 @@ or the original input if it's not a dictionary.</p></td>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     <span class="k">return</span> <span class="n">d</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="leafmap.common.replace_underscores_in_keys" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">replace_underscores_in_keys</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.common.replace_underscores_in_keys" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Recursively replaces underscores with hyphens in dictionary keys.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>d</code></td>
+        <td><code>Union[Dict, List, Any]</code></td>
+        <td><p>The input dictionary, list or any other data type.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Union[Dict, List, Any]</code></td>
+      <td><p>The modified dictionary or list with keys having underscores replaced with hyphens,
+or the original input if it's not a dictionary or list.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">replace_underscores_in_keys</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recursively replaces underscores with hyphens in dictionary keys.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        d (Union[Dict, List, Any]): The input dictionary, list or any other data type.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Union[Dict, List, Any]: The modified dictionary or list with keys having underscores replaced with hyphens,</span>
+<span class="sd">        or the original input if it&#39;s not a dictionary or list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">k</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">):</span> <span class="n">replace_underscores_in_keys</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">replace_underscores_in_keys</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">d</span>
 </code></pre></div>
         </details>
     </div>

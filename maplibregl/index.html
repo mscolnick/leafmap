@@ -913,6 +913,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#leafmap.maplibregl.Map.add_gps_trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      add_gps_trace()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#leafmap.maplibregl.Map.add_html" class="md-nav__link">
     <span class="md-ellipsis">
       add_html()
@@ -2852,6 +2861,27 @@
   
   <span class="md-ellipsis">
     Google earth engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maplibre/gps_trace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gps trace
   </span>
   
 
@@ -5851,6 +5881,15 @@
   <a href="#leafmap.maplibregl.Map.add_geojson" class="md-nav__link">
     <span class="md-ellipsis">
       add_geojson()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leafmap.maplibregl.Map.add_gps_trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      add_gps_trace()
     </span>
   </a>
   
@@ -9717,6 +9756,115 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
             <span class="bp">self</span><span class="o">.</span><span class="n">add_cog_layer</span><span class="p">(</span><span class="n">year_url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;NLCD </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">add_legend</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;NLCD Land Cover Type&quot;</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="s2">&quot;NLCD&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_gps_trace</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]],</span>
+        <span class="n">x</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+        <span class="n">columns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">radius</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">circle_color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">stroke_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">paint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GPS Trace&quot;</span><span class="p">,</span>
+        <span class="n">add_line</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">sort_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">line_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a GPS trace to the map.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (Union[str, List[Dict[str, Any]]]): The GPS trace data. It can be a GeoJSON file path or a list of coordinates.</span>
+<span class="sd">            x (str, optional): The column name for the x coordinates. Defaults to &quot;longitude&quot;.</span>
+<span class="sd">            y (str, optional): The column name for the y coordinates. Defaults to &quot;latitude&quot;.</span>
+<span class="sd">            columns (Optional[List[str]], optional): The list of columns to include in the GeoDataFrame. Defaults to None.</span>
+<span class="sd">            colormap (Optional[Dict[str, str]], optional): The colormap for the GPS trace. Defaults to None.</span>
+<span class="sd">            radius (int, optional): The radius of the GPS trace points. Defaults to 5.</span>
+<span class="sd">            circle_color (Optional[Union[str, List[Any]]], optional): The color of the GPS trace points. Defaults to None.</span>
+<span class="sd">            stroke_color (str, optional): The stroke color of the GPS trace points. Defaults to &quot;#ffffff&quot;.</span>
+<span class="sd">            opacity (float, optional): The opacity of the GPS trace points. Defaults to 1.0.</span>
+<span class="sd">            paint (Optional[Dict[str, Any]], optional): The paint properties for the GPS trace points. Defaults to None.</span>
+<span class="sd">            name (str, optional): The name of the GPS trace layer. Defaults to &quot;GPS Trace&quot;.</span>
+<span class="sd">            add_line (bool, optional): If True, adds a line connecting the GPS trace points. Defaults to False.</span>
+<span class="sd">            sort_column (Optional[str], optional): The column name to sort the points before connecting them as a line. Defaults to None.</span>
+<span class="sd">            line_args (Optional[Dict[str, Any]], optional): Additional arguments for the line layer. Defaults to None.</span>
+<span class="sd">            **kwargs (Any): Additional keyword arguments to pass to the add_geojson method.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">gdf</span> <span class="o">=</span> <span class="n">points_from_xy</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">):</span>
+            <span class="n">gdf</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid data type. Use a GeoDataFrame or a list of coordinates.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;gps_trace&quot;</span><span class="p">,</span> <span class="n">gdf</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">add_line</span><span class="p">:</span>
+            <span class="n">line_gdf</span> <span class="o">=</span> <span class="n">connect_points_as_line</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">sort_column</span><span class="o">=</span><span class="n">sort_column</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">line_gdf</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">colormap</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">colormap</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;doorstep&quot;</span><span class="p">:</span> <span class="s2">&quot;#FF0000&quot;</span><span class="p">,</span>  <span class="c1"># Red</span>
+                <span class="s2">&quot;indoor&quot;</span><span class="p">:</span> <span class="s2">&quot;#0000FF&quot;</span><span class="p">,</span>  <span class="c1"># Blue</span>
+                <span class="s2">&quot;outdoor&quot;</span><span class="p">:</span> <span class="s2">&quot;#00FF00&quot;</span><span class="p">,</span>  <span class="c1"># Green</span>
+                <span class="s2">&quot;parked&quot;</span><span class="p">:</span> <span class="s2">&quot;#000000&quot;</span><span class="p">,</span>  <span class="c1"># Yellow</span>
+                <span class="s2">&quot;selected&quot;</span><span class="p">:</span> <span class="s2">&quot;#FFFF00&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;annotation&quot;</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]</span>
+                <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">circle_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">circle_color</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="s2">&quot;match&quot;</span><span class="p">,</span>
+                        <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;doorstep&quot;</span><span class="p">,</span>
+                        <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;doorstep&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;indoor&quot;</span><span class="p">,</span>
+                        <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;indoor&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;outdoor&quot;</span><span class="p">,</span>
+                        <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;outdoor&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;parked&quot;</span><span class="p">,</span>
+                        <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;parked&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;selected&quot;</span><span class="p">,</span>
+                        <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;selected&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;#CCCCCC&quot;</span><span class="p">,</span>  <span class="c1"># Default color if annotation does not match</span>
+                    <span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">circle_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">circle_color</span> <span class="o">=</span> <span class="s2">&quot;#3388ff&quot;</span>
+
+        <span class="n">geojson</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span>
+
+        <span class="k">if</span> <span class="n">paint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">paint</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="n">radius</span><span class="p">,</span>
+                <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="n">circle_color</span><span class="p">,</span>
+                <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="n">stroke_color</span><span class="p">,</span>
+                <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;circle-opacity&quot;</span><span class="p">:</span> <span class="n">opacity</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">line_gdf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">line_args</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_gdf</span><span class="p">(</span><span class="n">line_gdf</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;GPS Trace Line&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">line_args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_geojson</span><span class="p">(</span><span class="n">geojson</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="n">paint</span><span class="o">=</span><span class="n">paint</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
 
@@ -11956,6 +12104,256 @@ See https://maplibre.org/maplibre-style-spec/layers/ for more info.</p></td>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_opacity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">paint</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s2">-opacity&quot;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_opacity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="leafmap.maplibregl.Map.add_gps_trace" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">add_gps_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">circle_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stroke_color</span><span class="o">=</span><span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">paint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;GPS Trace&#39;</span><span class="p">,</span> <span class="n">add_line</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.maplibregl.Map.add_gps_trace" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Adds a GPS trace to the map.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Union[str, List[Dict[str, Any]]]</code></td>
+        <td><p>The GPS trace data. It can be a GeoJSON file path or a list of coordinates.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>x</code></td>
+        <td><code>str</code></td>
+        <td><p>The column name for the x coordinates. Defaults to "longitude".</p></td>
+        <td><code>&#39;longitude&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>y</code></td>
+        <td><code>str</code></td>
+        <td><p>The column name for the y coordinates. Defaults to "latitude".</p></td>
+        <td><code>&#39;latitude&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>columns</code></td>
+        <td><code>Optional[List[str]]</code></td>
+        <td><p>The list of columns to include in the GeoDataFrame. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>colormap</code></td>
+        <td><code>Optional[Dict[str, str]]</code></td>
+        <td><p>The colormap for the GPS trace. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>radius</code></td>
+        <td><code>int</code></td>
+        <td><p>The radius of the GPS trace points. Defaults to 5.</p></td>
+        <td><code>5</code></td>
+      </tr>
+      <tr>
+        <td><code>circle_color</code></td>
+        <td><code>Optional[Union[str, List[Any]]]</code></td>
+        <td><p>The color of the GPS trace points. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>stroke_color</code></td>
+        <td><code>str</code></td>
+        <td><p>The stroke color of the GPS trace points. Defaults to "#ffffff".</p></td>
+        <td><code>&#39;#ffffff&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>opacity</code></td>
+        <td><code>float</code></td>
+        <td><p>The opacity of the GPS trace points. Defaults to 1.0.</p></td>
+        <td><code>1.0</code></td>
+      </tr>
+      <tr>
+        <td><code>paint</code></td>
+        <td><code>Optional[Dict[str, Any]]</code></td>
+        <td><p>The paint properties for the GPS trace points. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of the GPS trace layer. Defaults to "GPS Trace".</p></td>
+        <td><code>&#39;GPS Trace&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>add_line</code></td>
+        <td><code>bool</code></td>
+        <td><p>If True, adds a line connecting the GPS trace points. Defaults to False.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>sort_column</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>The column name to sort the points before connecting them as a line. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>line_args</code></td>
+        <td><code>Optional[Dict[str, Any]]</code></td>
+        <td><p>Additional arguments for the line layer. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>Any</code></td>
+        <td><p>Additional keyword arguments to pass to the add_geojson method.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>None</code></td>
+      <td><p>None</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/maplibregl.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_gps_trace</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]],</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+    <span class="n">columns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">radius</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">circle_color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">stroke_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">paint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GPS Trace&quot;</span><span class="p">,</span>
+    <span class="n">add_line</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">sort_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">line_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a GPS trace to the map.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (Union[str, List[Dict[str, Any]]]): The GPS trace data. It can be a GeoJSON file path or a list of coordinates.</span>
+<span class="sd">        x (str, optional): The column name for the x coordinates. Defaults to &quot;longitude&quot;.</span>
+<span class="sd">        y (str, optional): The column name for the y coordinates. Defaults to &quot;latitude&quot;.</span>
+<span class="sd">        columns (Optional[List[str]], optional): The list of columns to include in the GeoDataFrame. Defaults to None.</span>
+<span class="sd">        colormap (Optional[Dict[str, str]], optional): The colormap for the GPS trace. Defaults to None.</span>
+<span class="sd">        radius (int, optional): The radius of the GPS trace points. Defaults to 5.</span>
+<span class="sd">        circle_color (Optional[Union[str, List[Any]]], optional): The color of the GPS trace points. Defaults to None.</span>
+<span class="sd">        stroke_color (str, optional): The stroke color of the GPS trace points. Defaults to &quot;#ffffff&quot;.</span>
+<span class="sd">        opacity (float, optional): The opacity of the GPS trace points. Defaults to 1.0.</span>
+<span class="sd">        paint (Optional[Dict[str, Any]], optional): The paint properties for the GPS trace points. Defaults to None.</span>
+<span class="sd">        name (str, optional): The name of the GPS trace layer. Defaults to &quot;GPS Trace&quot;.</span>
+<span class="sd">        add_line (bool, optional): If True, adds a line connecting the GPS trace points. Defaults to False.</span>
+<span class="sd">        sort_column (Optional[str], optional): The column name to sort the points before connecting them as a line. Defaults to None.</span>
+<span class="sd">        line_args (Optional[Dict[str, Any]], optional): Additional arguments for the line layer. Defaults to None.</span>
+<span class="sd">        **kwargs (Any): Additional keyword arguments to pass to the add_geojson method.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">points_from_xy</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">):</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Invalid data type. Use a GeoDataFrame or a list of coordinates.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;gps_trace&quot;</span><span class="p">,</span> <span class="n">gdf</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">add_line</span><span class="p">:</span>
+        <span class="n">line_gdf</span> <span class="o">=</span> <span class="n">connect_points_as_line</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">sort_column</span><span class="o">=</span><span class="n">sort_column</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">line_gdf</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">colormap</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">colormap</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;doorstep&quot;</span><span class="p">:</span> <span class="s2">&quot;#FF0000&quot;</span><span class="p">,</span>  <span class="c1"># Red</span>
+            <span class="s2">&quot;indoor&quot;</span><span class="p">:</span> <span class="s2">&quot;#0000FF&quot;</span><span class="p">,</span>  <span class="c1"># Blue</span>
+            <span class="s2">&quot;outdoor&quot;</span><span class="p">:</span> <span class="s2">&quot;#00FF00&quot;</span><span class="p">,</span>  <span class="c1"># Green</span>
+            <span class="s2">&quot;parked&quot;</span><span class="p">:</span> <span class="s2">&quot;#000000&quot;</span><span class="p">,</span>  <span class="c1"># Yellow</span>
+            <span class="s2">&quot;selected&quot;</span><span class="p">:</span> <span class="s2">&quot;#FFFF00&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;annotation&quot;</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]</span>
+            <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">circle_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">circle_color</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="s2">&quot;match&quot;</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;doorstep&quot;</span><span class="p">,</span>
+                    <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;doorstep&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;indoor&quot;</span><span class="p">,</span>
+                    <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;indoor&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;outdoor&quot;</span><span class="p">,</span>
+                    <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;outdoor&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;parked&quot;</span><span class="p">,</span>
+                    <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;parked&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;selected&quot;</span><span class="p">,</span>
+                    <span class="n">colormap</span><span class="p">[</span><span class="s2">&quot;selected&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;#CCCCCC&quot;</span><span class="p">,</span>  <span class="c1"># Default color if annotation does not match</span>
+                <span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">circle_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">circle_color</span> <span class="o">=</span> <span class="s2">&quot;#3388ff&quot;</span>
+
+    <span class="n">geojson</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span>
+
+    <span class="k">if</span> <span class="n">paint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">paint</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="n">radius</span><span class="p">,</span>
+            <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="n">circle_color</span><span class="p">,</span>
+            <span class="s2">&quot;circle-stroke-color&quot;</span><span class="p">:</span> <span class="n">stroke_color</span><span class="p">,</span>
+            <span class="s2">&quot;circle-stroke-width&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;circle-opacity&quot;</span><span class="p">:</span> <span class="n">opacity</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">line_gdf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">line_args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_gdf</span><span class="p">(</span><span class="n">line_gdf</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;GPS Trace Line&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">line_args</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_geojson</span><span class="p">(</span><span class="n">geojson</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="n">paint</span><span class="o">=</span><span class="n">paint</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>

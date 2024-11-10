@@ -1053,6 +1053,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#leafmap.common.connect_points_as_line" class="md-nav__link">
+    <span class="md-ellipsis">
+      connect_points_as_line()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#leafmap.common.connect_postgis" class="md-nav__link">
     <span class="md-ellipsis">
       connect_postgis()
@@ -2262,6 +2271,15 @@
   <a href="#leafmap.common.kml_to_shp" class="md-nav__link">
     <span class="md-ellipsis">
       kml_to_shp()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leafmap.common.line_to_points" class="md-nav__link">
+    <span class="md-ellipsis">
+      line_to_points()
     </span>
   </a>
   
@@ -5012,6 +5030,27 @@
   
   <span class="md-ellipsis">
     Google earth engine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maplibre/gps_trace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gps trace
   </span>
   
 
@@ -8283,6 +8322,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#leafmap.common.connect_points_as_line" class="md-nav__link">
+    <span class="md-ellipsis">
+      connect_points_as_line()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#leafmap.common.connect_postgis" class="md-nav__link">
     <span class="md-ellipsis">
       connect_postgis()
@@ -9492,6 +9540,15 @@
   <a href="#leafmap.common.kml_to_shp" class="md-nav__link">
     <span class="md-ellipsis">
       kml_to_shp()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leafmap.common.line_to_points" class="md-nav__link">
+    <span class="md-ellipsis">
+      line_to_points()
     </span>
   </a>
   
@@ -15680,6 +15737,120 @@ interval : boolean (default False)
         <span class="k">return</span> <span class="n">cog_info</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">cog_validate</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="leafmap.common.connect_points_as_line" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">connect_points_as_line</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">sort_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.common.connect_points_as_line" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Connects points in a GeoDataFrame into a single LineString based on a specified sort column
+or the index if no column is provided. The resulting GeoDataFrame will have the specified CRS.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>gdf</code></td>
+        <td><code>GeoDataFrame</code></td>
+        <td><p>A GeoDataFrame containing point geometries.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>sort_column</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>Column name to sort the points by (e.g., 'timestamp').
+                         If None, the index is used for sorting. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>crs</code></td>
+        <td><code>str</code></td>
+        <td><p>The coordinate reference system (CRS) for the resulting GeoDataFrame.
+       Defaults to "EPSG:4326".</p></td>
+        <td><code>&#39;EPSG:4326&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>GeoDataFrame</code></td>
+      <td><p>A new GeoDataFrame containing a single LineString geometry that connects
+              all points in the specified order, with the specified CRS.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">line_gdf</span> <span class="o">=</span> <span class="n">connect_points_as_line</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:3857&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">line_gdf</span> <span class="o">=</span> <span class="n">connect_points_as_line</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span>  <span class="c1"># Uses index and defaults to EPSG:4326</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>leafmap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">connect_points_as_line</span><span class="p">(</span>
+    <span class="n">gdf</span><span class="p">:</span> <span class="s2">&quot;GeoDataFrame&quot;</span><span class="p">,</span> <span class="n">sort_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">crs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;EPSG:4326&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;GeoDataFrame&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Connects points in a GeoDataFrame into a single LineString based on a specified sort column</span>
+<span class="sd">    or the index if no column is provided. The resulting GeoDataFrame will have the specified CRS.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gdf (GeoDataFrame): A GeoDataFrame containing point geometries.</span>
+<span class="sd">        sort_column (Optional[str]): Column name to sort the points by (e.g., &#39;timestamp&#39;).</span>
+<span class="sd">                                     If None, the index is used for sorting. Defaults to None.</span>
+<span class="sd">        crs (str): The coordinate reference system (CRS) for the resulting GeoDataFrame.</span>
+<span class="sd">                   Defaults to &quot;EPSG:4326&quot;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        GeoDataFrame: A new GeoDataFrame containing a single LineString geometry that connects</span>
+<span class="sd">                      all points in the specified order, with the specified CRS.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; line_gdf = connect_points_as_line(gdf, &#39;timestamp&#39;, crs=&quot;EPSG:3857&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; line_gdf = connect_points_as_line(gdf)  # Uses index and defaults to EPSG:4326</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">LineString</span>
+    <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+    <span class="c1"># Sort the GeoDataFrame by the specified column or by index if None</span>
+    <span class="n">gdf_sorted</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">sort_column</span><span class="p">)</span> <span class="k">if</span> <span class="n">sort_column</span> <span class="k">else</span> <span class="n">gdf</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+    <span class="c1"># Extract the point geometries and create a LineString</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">(</span><span class="n">gdf_sorted</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+    <span class="c1"># Create a new GeoDataFrame with the LineString and the specified CRS</span>
+    <span class="n">line_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">line</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">line_gdf</span>
 </code></pre></div>
         </details>
     </div>
@@ -32530,6 +32701,99 @@ will be used. Defaults to None.</p></td>
     <span class="n">fiona</span><span class="o">.</span><span class="n">drvsupport</span><span class="o">.</span><span class="n">supported_drivers</span><span class="p">[</span><span class="s2">&quot;KML&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rw&quot;</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">in_kml</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;KML&quot;</span><span class="p">)</span>
     <span class="n">df</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">out_shp</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="leafmap.common.line_to_points" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">line_to_points</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.common.line_to_points" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Converts a LineString geometry in a GeoDataFrame into individual points.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>line_gdf</code></td>
+        <td><code>GeoDataFrame</code></td>
+        <td><p>A GeoDataFrame containing a LineString geometry.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>GeoDataFrame</code></td>
+      <td><p>A new GeoDataFrame where each vertex of the LineString is a Point geometry.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">line_to_points</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;GeoDataFrame&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a LineString geometry in a GeoDataFrame into individual points.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        line_gdf (GeoDataFrame): A GeoDataFrame containing a LineString geometry.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        GeoDataFrame: A new GeoDataFrame where each vertex of the LineString is a Point geometry.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+    <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span>
+    <span class="kn">from</span> <span class="nn">geopandas</span> <span class="kn">import</span> <span class="n">GeoDataFrame</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">line_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">GeoDataFrame</span><span class="p">):</span>
+        <span class="n">line_gdf</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid input. Must be a file path or a GeoDataFrame.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Ensure there is a LineString in the GeoDataFrame</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">line_gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;LineString&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input GeoDataFrame must contain only LineString geometries.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Extract the first (and only) LineString from the GeoDataFrame</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line_gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Convert each point in the LineString to a Point geometry</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">coords</span><span class="p">]</span>
+
+    <span class="c1"># Create a new GeoDataFrame with these points</span>
+    <span class="n">points_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">line_gdf</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">points_gdf</span>
 </code></pre></div>
         </details>
     </div>

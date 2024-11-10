@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -8578,6 +8578,7 @@ Map            (<span title="folium.folium.Map">Map</span>)
         <span class="n">position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
         <span class="n">draggable</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">style</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="n">shape_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a customized legend to the map. Reference: https://bit.ly/3oV6vnH.</span>
 <span class="sd">            If you want to add multiple legends to the map, you need to set the `draggable` argument to False.</span>
@@ -8607,6 +8608,8 @@ Map            (<span title="folium.folium.Map">Map</span>)
 <span class="sd">                    &#39;bottom&#39;: &#39;20px&#39;,</span>
 <span class="sd">                    &#39;right&#39;: &#39;5px&#39;</span>
 <span class="sd">                }</span>
+<span class="sd">            shape_type (str, optional): The shape type of the legend item. It can be</span>
+<span class="sd">                either &quot;rectangle&quot;, &quot;line&quot; or &quot;circle&quot;. Defaults to &quot;rectangle&quot;.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">create_legend</span><span class="p">(</span>
@@ -8619,6 +8622,7 @@ Map            (<span title="folium.folium.Map">Map</span>)
             <span class="n">position</span><span class="p">,</span>
             <span class="n">draggable</span><span class="p">,</span>
             <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+            <span class="n">shape_type</span><span class="o">=</span><span class="n">shape_type</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">draggable</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">branca.element</span> <span class="kn">import</span> <span class="n">Template</span><span class="p">,</span> <span class="n">MacroElement</span>
@@ -13215,7 +13219,7 @@ the percentage ranging from 0 to 100, starting from the lower-left corner. Defau
 
 
 <h3 id="leafmap.foliumap.Map.add_legend" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">draggable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{})</span></code>
+<code class="highlight language-python"><span class="n">add_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">draggable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{},</span> <span class="n">shape_type</span><span class="o">=</span><span class="s1">&#39;rectangle&#39;</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.foliumap.Map.add_legend" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -13305,6 +13309,13 @@ style = {
 }</p></td>
         <td><code>{}</code></td>
       </tr>
+      <tr>
+        <td><code>shape_type</code></td>
+        <td><code>str</code></td>
+        <td><p>The shape type of the legend item. It can be
+either "rectangle", "line" or "circle". Defaults to "rectangle".</p></td>
+        <td><code>&#39;rectangle&#39;</code></td>
+      </tr>
   </tbody>
 </table>
         <details class="quote">
@@ -13320,6 +13331,7 @@ style = {
     <span class="n">position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
     <span class="n">draggable</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">shape_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a customized legend to the map. Reference: https://bit.ly/3oV6vnH.</span>
 <span class="sd">        If you want to add multiple legends to the map, you need to set the `draggable` argument to False.</span>
@@ -13349,6 +13361,8 @@ style = {
 <span class="sd">                &#39;bottom&#39;: &#39;20px&#39;,</span>
 <span class="sd">                &#39;right&#39;: &#39;5px&#39;</span>
 <span class="sd">            }</span>
+<span class="sd">        shape_type (str, optional): The shape type of the legend item. It can be</span>
+<span class="sd">            either &quot;rectangle&quot;, &quot;line&quot; or &quot;circle&quot;. Defaults to &quot;rectangle&quot;.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">create_legend</span><span class="p">(</span>
@@ -13361,6 +13375,7 @@ style = {
         <span class="n">position</span><span class="p">,</span>
         <span class="n">draggable</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+        <span class="n">shape_type</span><span class="o">=</span><span class="n">shape_type</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">draggable</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">branca.element</span> <span class="kn">import</span> <span class="n">Template</span><span class="p">,</span> <span class="n">MacroElement</span>

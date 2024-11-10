@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -16882,7 +16882,7 @@ Can be "bucket-owner" or "requester". Defaults to "bucket-owner".</p></td>
 
 
 <h2 id="leafmap.common.create_legend" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">create_legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">draggable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{})</span></code>
+<code class="highlight language-python"><span class="n">create_legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">draggable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{},</span> <span class="n">shape_type</span><span class="o">=</span><span class="s1">&#39;rectangle&#39;</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.common.create_legend" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -17006,6 +17006,7 @@ style = {
     <span class="n">draggable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">shape_type</span><span class="o">=</span><span class="s2">&quot;rectangle&quot;</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a legend in HTML format. Reference: https://bit.ly/3oV6vnH</span>
 
@@ -17231,6 +17232,14 @@ style = {
                 <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
     <span class="n">legend_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;circle&quot;</span><span class="p">:</span>
+        <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;width: 30px&quot;</span><span class="p">,</span> <span class="s2">&quot;width: 16px&quot;</span><span class="p">)</span>
+        <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+            <span class="s2">&quot;border: 1px solid #999;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;border-radius: 50%;</span><span class="se">\n</span><span class="s2">      border: 1px solid #999;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span>
+        <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;height: 16px&quot;</span><span class="p">,</span> <span class="s2">&quot;height: 3px&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>

@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -8812,6 +8812,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
         <span class="n">bg_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
         <span class="n">position</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;bottom-right&quot;</span><span class="p">,</span>
         <span class="n">builtin_legend</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">shape_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -8833,6 +8834,7 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 <span class="sd">            position (str, optional): The position of the legend on the map. Can be one of &quot;top-left&quot;,</span>
 <span class="sd">                &quot;top-right&quot;, &quot;bottom-left&quot;, &quot;bottom-right&quot;. Defaults to &quot;bottom-right&quot;.</span>
 <span class="sd">            builtin_legend (Optional[str], optional): The name of a built-in legend to use. Defaults to None.</span>
+<span class="sd">            shape_type (str, optional): The shape type of the legend items. Can be one of &quot;rectangle&quot;, &quot;circle&quot;, or &quot;line&quot;.</span>
 <span class="sd">            **kwargs: Additional keyword arguments for future use.</span>
 
 <span class="sd">        Returns:</span>
@@ -8946,6 +8948,15 @@ Map            (<span title="maplibre.ipywidget.MapWidget">MapWidget</span>)
 
         <span class="n">legend_html</span> <span class="o">=</span> <span class="n">header</span> <span class="o">+</span> <span class="n">content</span> <span class="o">+</span> <span class="n">footer</span>
         <span class="n">legend_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">legend_html</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;circle&quot;</span><span class="p">:</span>
+            <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;width: 30px&quot;</span><span class="p">,</span> <span class="s2">&quot;width: 16px&quot;</span><span class="p">)</span>
+            <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="s2">&quot;border: 1px solid #999;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;border-radius: 50%;</span><span class="se">\n</span><span class="s2">      border: 1px solid #999;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span>
+            <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;height: 16px&quot;</span><span class="p">,</span> <span class="s2">&quot;height: 3px&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">add_html</span><span class="p">(</span>
             <span class="n">legend_text</span><span class="p">,</span>
@@ -12433,7 +12444,7 @@ or "bottom-right". Defaults to "top-left".</p></td>
 
 
 <h3 id="leafmap.maplibregl.Map.add_legend" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">legend_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottom-right&#39;</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">legend_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottom-right&#39;</span><span class="p">,</span> <span class="n">builtin_legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape_type</span><span class="o">=</span><span class="s1">&#39;rectangle&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#leafmap.maplibregl.Map.add_legend" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -12508,6 +12519,12 @@ To make the background half transparent, set this to "rgba(255, 255, 255, 0.5)".
         <td><code>None</code></td>
       </tr>
       <tr>
+        <td><code>shape_type</code></td>
+        <td><code>str</code></td>
+        <td><p>The shape type of the legend items. Can be one of "rectangle", "circle", or "line".</p></td>
+        <td><code>&#39;rectangle&#39;</code></td>
+      </tr>
+      <tr>
         <td><code>**kwargs</code></td>
         <td><code>Union[str, int, float]</code></td>
         <td><p>Additional keyword arguments for future use.</p></td>
@@ -12542,6 +12559,7 @@ To make the background half transparent, set this to "rgba(255, 255, 255, 0.5)".
     <span class="n">bg_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
     <span class="n">position</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;bottom-right&quot;</span><span class="p">,</span>
     <span class="n">builtin_legend</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shape_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -12563,6 +12581,7 @@ To make the background half transparent, set this to "rgba(255, 255, 255, 0.5)".
 <span class="sd">        position (str, optional): The position of the legend on the map. Can be one of &quot;top-left&quot;,</span>
 <span class="sd">            &quot;top-right&quot;, &quot;bottom-left&quot;, &quot;bottom-right&quot;. Defaults to &quot;bottom-right&quot;.</span>
 <span class="sd">        builtin_legend (Optional[str], optional): The name of a built-in legend to use. Defaults to None.</span>
+<span class="sd">        shape_type (str, optional): The shape type of the legend items. Can be one of &quot;rectangle&quot;, &quot;circle&quot;, or &quot;line&quot;.</span>
 <span class="sd">        **kwargs: Additional keyword arguments for future use.</span>
 
 <span class="sd">    Returns:</span>
@@ -12676,6 +12695,15 @@ To make the background half transparent, set this to "rgba(255, 255, 255, 0.5)".
 
     <span class="n">legend_html</span> <span class="o">=</span> <span class="n">header</span> <span class="o">+</span> <span class="n">content</span> <span class="o">+</span> <span class="n">footer</span>
     <span class="n">legend_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">legend_html</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;circle&quot;</span><span class="p">:</span>
+        <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;width: 30px&quot;</span><span class="p">,</span> <span class="s2">&quot;width: 16px&quot;</span><span class="p">)</span>
+        <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+            <span class="s2">&quot;border: 1px solid #999;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;border-radius: 50%;</span><span class="se">\n</span><span class="s2">      border: 1px solid #999;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span>
+        <span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;height: 16px&quot;</span><span class="p">,</span> <span class="s2">&quot;height: 3px&quot;</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">add_html</span><span class="p">(</span>
         <span class="n">legend_text</span><span class="p">,</span>

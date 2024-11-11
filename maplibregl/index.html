@@ -1341,6 +1341,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#leafmap.maplibregl.edit_gps_trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      edit_gps_trace()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#leafmap.maplibregl.maptiler_3d_style" class="md-nav__link">
     <span class="md-ellipsis">
       maptiler_3d_style()
@@ -6309,6 +6318,15 @@
   <a href="#leafmap.maplibregl.construct_maptiler_style" class="md-nav__link">
     <span class="md-ellipsis">
       construct_maptiler_style()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leafmap.maplibregl.edit_gps_trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      edit_gps_trace()
     </span>
   </a>
   
@@ -18462,6 +18480,364 @@ attempts to retrieve the API key using a predefined method. Defaults to None.</p
         <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://tiles.openfreemap.org/styles/liberty&quot;</span>
 
     <span class="k">return</span> <span class="n">url</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="leafmap.maplibregl.edit_gps_trace" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">edit_gps_trace</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">colormap</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">fig_width</span><span class="o">=</span><span class="s1">&#39;1550px&#39;</span><span class="p">,</span> <span class="n">fig_height</span><span class="o">=</span><span class="s1">&#39;400px&#39;</span><span class="p">)</span></code>
+
+
+<a href="#leafmap.maplibregl.edit_gps_trace" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Edits a GPS trace on the map and allows for annotation and export.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>filename</code></td>
+        <td><code>str</code></td>
+        <td><p>The path to the GPS trace CSV file.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>m</code></td>
+        <td><code>Any</code></td>
+        <td><p>The map object containing the GPS trace.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>colormap</code></td>
+        <td><code>Dict[str, str]</code></td>
+        <td><p>The colormap for the GPS trace annotations.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>layer_name</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of the GPS trace layer.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>fig_width</code></td>
+        <td><code>str</code></td>
+        <td><p>The width of the figure. Defaults to "1550px".</p></td>
+        <td><code>&#39;1550px&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>fig_height</code></td>
+        <td><code>str</code></td>
+        <td><p>The height of the figure. Defaults to "400px".</p></td>
+        <td><code>&#39;400px&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Any</code></td>
+      <td><p>The main widget containing the map and the editing interface.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>leafmap/maplibregl.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">edit_gps_trace</span><span class="p">(</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">m</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">layer_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">fig_width</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;1550px&quot;</span><span class="p">,</span>
+    <span class="n">fig_height</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;400px&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Edits a GPS trace on the map and allows for annotation and export.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str): The path to the GPS trace CSV file.</span>
+<span class="sd">        m (Any): The map object containing the GPS trace.</span>
+<span class="sd">        colormap (Dict[str, str]): The colormap for the GPS trace annotations.</span>
+<span class="sd">        layer_name (str): The name of the GPS trace layer.</span>
+<span class="sd">        fig_width (str, optional): The width of the figure. Defaults to &quot;1550px&quot;.</span>
+<span class="sd">        fig_height (str, optional): The height of the figure. Defaults to &quot;400px&quot;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Any: The main widget containing the map and the editing interface.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">bqplot</span> <span class="kn">import</span> <span class="n">LinearScale</span><span class="p">,</span> <span class="n">Scatter</span><span class="p">,</span> <span class="n">Figure</span><span class="p">,</span> <span class="n">PanZoom</span>
+    <span class="kn">import</span> <span class="nn">bqplot</span> <span class="k">as</span> <span class="nn">bq</span>
+    <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">VBox</span><span class="p">,</span> <span class="n">Button</span>
+
+    <span class="n">output_csv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;_annotated.csv&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">output_geojson</span> <span class="o">=</span> <span class="n">output_csv</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;.geojson&quot;</span><span class="p">)</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">()</span>
+
+    <span class="n">fig_margin</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+    <span class="n">x_sc</span> <span class="o">=</span> <span class="n">LinearScale</span><span class="p">()</span>
+    <span class="n">y_sc</span> <span class="o">=</span> <span class="n">LinearScale</span><span class="p">()</span>
+
+    <span class="n">features</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="o">.</span><span class="n">columns</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">default_feature</span> <span class="o">=</span> <span class="s2">&quot;max_signal_strength&quot;</span>
+    <span class="n">default_index</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">default_feature</span><span class="p">)</span>
+    <span class="n">feature</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">default_index</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Select feature&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">column</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">category_column</span> <span class="o">=</span> <span class="s2">&quot;annotation&quot;</span>  <span class="c1"># Replace with your categorical column name</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
+
+    <span class="c1"># Create scatter plots for each annotation category with the appropriate colors and labels</span>
+    <span class="n">scatters</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">cat</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colormap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">cat</span> <span class="o">!=</span> <span class="s2">&quot;selected&quot;</span>
+        <span class="p">):</span>  <span class="c1"># Exclude &#39;selected&#39; from data points (only for highlighting selection)</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="p">[</span><span class="n">category_column</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span>
+            <span class="n">scatter</span> <span class="o">=</span> <span class="n">Scatter</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span>
+                <span class="n">scales</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">x_sc</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">y_sc</span><span class="p">},</span>
+                <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="n">color</span><span class="p">],</span>
+                <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+                <span class="n">stroke</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
+                <span class="n">unselected_style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">},</span>
+                <span class="n">selected_style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+                <span class="n">default_size</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>  <span class="c1"># Set a smaller default marker size</span>
+                <span class="n">display_legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="n">cat</span><span class="p">],</span>  <span class="c1"># Add the category label for the legend</span>
+            <span class="p">)</span>
+            <span class="n">scatters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scatter</span><span class="p">)</span>
+
+    <span class="c1"># Create the figure and add the scatter plots</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span>
+        <span class="n">marks</span><span class="o">=</span><span class="n">scatters</span><span class="p">,</span>
+        <span class="n">fig_margin</span><span class="o">=</span><span class="n">fig_margin</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">fig_width</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">fig_height</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">bq</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">x_sc</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Time&quot;</span><span class="p">),</span>
+        <span class="n">bq</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">y_sc</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">column</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">legend_location</span> <span class="o">=</span> <span class="s2">&quot;top-right&quot;</span>
+
+    <span class="c1"># Add LassoSelector interaction</span>
+    <span class="n">selector</span> <span class="o">=</span> <span class="n">bq</span><span class="o">.</span><span class="n">interacts</span><span class="o">.</span><span class="n">LassoSelector</span><span class="p">(</span><span class="n">x_scale</span><span class="o">=</span><span class="n">x_sc</span><span class="p">,</span> <span class="n">y_scale</span><span class="o">=</span><span class="n">y_sc</span><span class="p">,</span> <span class="n">marks</span><span class="o">=</span><span class="n">scatters</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="n">selector</span>
+
+    <span class="c1"># Add PanZoom interaction for zooming and panning</span>
+    <span class="n">panzoom</span> <span class="o">=</span> <span class="n">PanZoom</span><span class="p">(</span><span class="n">scales</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">x_sc</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">y_sc</span><span class="p">]})</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">panzoom</span>  <span class="c1"># Set PanZoom as the interaction to enable zooming initially</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Callback function to handle selected points with bounds check</span>
+    <span class="k">def</span> <span class="nf">on_select</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="c1"># output.clear_output()</span>
+        <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
+            <span class="n">selected_idx</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">scatter</span> <span class="ow">in</span> <span class="n">scatters</span><span class="p">:</span>
+                <span class="n">selected_indices</span> <span class="o">=</span> <span class="n">scatter</span><span class="o">.</span><span class="n">selected</span>
+                <span class="k">if</span> <span class="n">selected_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">selected_indices</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">selected_indices</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">scatter</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+                    <span class="p">]</span>  <span class="c1"># Ensure integer indices</span>
+                    <span class="n">selected_x</span> <span class="o">=</span> <span class="n">scatter</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">selected_indices</span><span class="p">]</span>
+                    <span class="n">selected_y</span> <span class="o">=</span> <span class="n">scatter</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">selected_indices</span><span class="p">]</span>
+                    <span class="n">selected_idx</span> <span class="o">+=</span> <span class="n">selected_x</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">selected_idx</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">selected_idx</span><span class="p">)))</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">selected_idx</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;selected&quot;</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span><span class="p">)</span>
+
+    <span class="c1"># Register the callback for each scatter plot</span>
+    <span class="k">for</span> <span class="n">scatter</span> <span class="ow">in</span> <span class="n">scatters</span><span class="p">:</span>
+        <span class="n">scatter</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">on_select</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;selected&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Programmatic selection function based on common x values</span>
+    <span class="k">def</span> <span class="nf">select_points_by_common_x</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select points based on a common list of x values across all categories.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">scatter</span> <span class="ow">in</span> <span class="n">scatters</span><span class="p">:</span>
+            <span class="c1"># Find indices of points in the scatter that match the given x values</span>
+            <span class="n">selected_indices</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">scatter</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="n">x_val</span> <span class="ow">in</span> <span class="n">x_values</span>
+            <span class="p">]</span>
+            <span class="n">scatter</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">selected_indices</span>  <span class="c1"># Highlight points at the specified indices</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Function to clear the lasso selection</span>
+    <span class="k">def</span> <span class="nf">clear_selection</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">scatter</span> <span class="ow">in</span> <span class="n">scatters</span><span class="p">:</span>
+            <span class="n">scatter</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Clear selected points</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="n">selector</span>  <span class="c1"># Re-enable the LassoSelector</span>
+
+        <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span><span class="p">)</span>
+
+    <span class="c1"># Button to clear selection and switch between interactions</span>
+    <span class="n">clear_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Clear Selection&quot;</span><span class="p">,</span> <span class="n">button_style</span><span class="o">=</span><span class="s2">&quot;primary&quot;</span><span class="p">)</span>
+    <span class="n">clear_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">clear_selection</span><span class="p">)</span>
+
+    <span class="c1"># Toggle between LassoSelector and PanZoom interactions</span>
+    <span class="k">def</span> <span class="nf">toggle_interaction</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">fig</span><span class="o">.</span><span class="n">interaction</span> <span class="o">==</span> <span class="n">selector</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="n">panzoom</span>  <span class="c1"># Switch to PanZoom for zooming and panning</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Enable Lasso&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="n">selector</span>  <span class="c1"># Switch back to LassoSelector</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Enable Zoom/Pan&quot;</span>
+
+    <span class="n">toggle_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Enable Zoom/Pan&quot;</span><span class="p">,</span> <span class="n">button_style</span><span class="o">=</span><span class="s2">&quot;primary&quot;</span><span class="p">)</span>
+    <span class="n">toggle_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">toggle_interaction</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">feature_change</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">change</span><span class="p">[</span><span class="s2">&quot;new&quot;</span><span class="p">]:</span>
+            <span class="n">categories</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">colormap</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">cat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">keys</span><span class="p">):</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span>
+                <span class="n">scatters</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+                <span class="n">scatters</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="p">[</span><span class="n">feature</span><span class="o">.</span><span class="n">value</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
+                <span class="n">scatters</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">colormap</span><span class="p">[</span><span class="n">cat</span><span class="p">]]</span> <span class="o">*</span> <span class="n">categories</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">scatter</span> <span class="ow">in</span> <span class="n">scatters</span><span class="p">:</span>
+                <span class="n">scatter</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">feature</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">feature_change</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">draw_change</span><span class="p">(</span><span class="n">lng_lat</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">lng_lat</span><span class="o">.</span><span class="n">new</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">draw_features_selected</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span>
+            <span class="n">gdf_draw</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_features</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+            <span class="n">points_within_polygons</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">,</span> <span class="n">gdf_draw</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">&quot;within&quot;</span>
+            <span class="p">)</span>
+            <span class="n">points_within_polygons</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                <span class="n">points_within_polygons</span><span class="p">[</span><span class="s2">&quot;index_right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">(),</span> <span class="s2">&quot;category&quot;</span>
+            <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;selected&quot;</span>
+            <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
+                <span class="n">selected</span> <span class="o">=</span> <span class="n">points_within_polygons</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                    <span class="n">points_within_polygons</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;selected&quot;</span>
+                <span class="p">]</span>
+                <span class="n">sel_idx</span> <span class="o">=</span> <span class="n">selected</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">select_points_by_common_x</span><span class="p">(</span><span class="n">sel_idx</span><span class="p">)</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">points_within_polygons</span><span class="o">.</span><span class="n">__geo_interface__</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;index_right&quot;</span> <span class="ow">in</span> <span class="n">points_within_polygons</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">points_within_polygons</span> <span class="o">=</span> <span class="n">points_within_polygons</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;index_right&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">gdf</span> <span class="o">=</span> <span class="n">points_within_polygons</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">scatter</span> <span class="ow">in</span> <span class="n">scatters</span><span class="p">:</span>
+                <span class="n">scatter</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Clear selected points</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="n">selector</span>  <span class="c1"># Re-enable the LassoSelector</span>
+
+            <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span><span class="p">)</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">draw_change</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s2">&quot;draw_features_selected&quot;</span><span class="p">)</span>
+
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([])</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;doorstep&quot;</span><span class="p">,</span> <span class="s2">&quot;indoor&quot;</span><span class="p">,</span> <span class="s2">&quot;outdoor&quot;</span><span class="p">,</span> <span class="s2">&quot;parked&quot;</span><span class="p">]</span>
+    <span class="n">dropdown</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;annotation&quot;</span><span class="p">)</span>
+    <span class="n">button_layout</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s2">&quot;97px&quot;</span><span class="p">)</span>
+    <span class="n">save</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Save&quot;</span><span class="p">,</span> <span class="n">button_style</span><span class="o">=</span><span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">button_layout</span>
+    <span class="p">)</span>
+    <span class="n">export</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Export&quot;</span><span class="p">,</span> <span class="n">button_style</span><span class="o">=</span><span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">button_layout</span>
+    <span class="p">)</span>
+    <span class="n">reset</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Reset&quot;</span><span class="p">,</span> <span class="n">button_style</span><span class="o">=</span><span class="s2">&quot;primary&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">button_layout</span>
+    <span class="p">)</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature</span><span class="p">,</span> <span class="n">dropdown</span><span class="p">,</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">([</span><span class="n">save</span><span class="p">,</span> <span class="n">export</span><span class="p">,</span> <span class="n">reset</span><span class="p">]),</span> <span class="n">output</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">on_save_click</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;selected&quot;</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;selected&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span><span class="p">)</span>
+        <span class="n">categories</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">colormap</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">cat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">keys</span><span class="p">):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span>
+            <span class="n">scatters</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+            <span class="n">scatters</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="p">[</span><span class="n">feature</span><span class="o">.</span><span class="n">value</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
+            <span class="n">scatters</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">colormap</span><span class="p">[</span><span class="n">cat</span><span class="p">]]</span> <span class="o">*</span> <span class="n">categories</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">scatter</span> <span class="ow">in</span> <span class="n">scatters</span><span class="p">:</span>
+            <span class="n">scatter</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Clear selected points</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="n">selector</span>  <span class="c1"># Re-enable the LassoSelector</span>
+
+        <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="o">.</span><span class="n">__geo_interface__</span><span class="p">)</span>
+
+    <span class="n">save</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">on_save_click</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_export_click</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;annotation&quot;</span><span class="p">]</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">gps_trace</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">])</span>
+        <span class="n">gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_geojson</span><span class="p">)</span>
+        <span class="n">gdf</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">export</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">on_export_click</span><span class="p">)</span>
+
+    <span class="n">plot_widget</span> <span class="o">=</span> <span class="n">VBox</span><span class="p">([</span><span class="n">fig</span><span class="p">,</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">([</span><span class="n">clear_button</span><span class="p">,</span> <span class="n">toggle_button</span><span class="p">])])</span>
+
+    <span class="n">left_col_layout</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">Col</span><span class="p">(</span>
+        <span class="n">cols</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;pa-1&quot;</span>  <span class="c1"># padding for consistent spacing</span>
+    <span class="p">)</span>
+    <span class="n">right_col_layout</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">Col</span><span class="p">(</span>
+        <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">widget</span><span class="p">],</span>
+        <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;pa-1&quot;</span><span class="p">,</span>  <span class="c1"># padding for consistent spacing</span>
+    <span class="p">)</span>
+    <span class="n">row1</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">Row</span><span class="p">(</span>
+        <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;d-flex flex-wrap&quot;</span><span class="p">,</span>
+        <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">left_col_layout</span><span class="p">,</span> <span class="n">right_col_layout</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">row2</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">Row</span><span class="p">(</span>
+        <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;d-flex flex-wrap&quot;</span><span class="p">,</span>
+        <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">plot_widget</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">main_widget</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">Col</span><span class="p">(</span><span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">main_widget</span>
 </code></pre></div>
         </details>
     </div>
